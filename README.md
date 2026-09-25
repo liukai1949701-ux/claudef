@@ -44,7 +44,7 @@ Tabs: Start Here, Inputs, Summary, Rental, Max Offer, BRRRR, Flip, STR, Projecti
 ```bash
 python3 -m http.server 8000        # then open http://localhost:8000
 node tests/calc.test.mjs           # calculator math vs. reference fixtures
-python3 tests/site_check.py        # browser checks (needs Playwright + Chromium)
+python3 tests/site_check.py        # browser checks (needs Playwright; CHROMIUM_PATH=/path/to/chrome optional)
 ```
 
 © 2026 DoorMath. All rights reserved.

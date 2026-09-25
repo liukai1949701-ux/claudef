@@ -6,6 +6,9 @@ Serves the site folder with `python3 -m http.server` on a free localhost port an
 Playwright's Chromium to check desktop (1280px) and mobile (375px) layouts, console
 errors, failed/external requests, horizontal overflow, the calculator, the lightbox and
 every Buy link. Saves full-page screenshots to tests/out/.
+
+Set CHROMIUM_PATH to use a specific Chromium binary; otherwise Playwright's own
+bundled Chromium is used.
 """
 import math
 import os
@@ -19,7 +22,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "tests", "out")
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = os.environ.get("CHROMIUM_PATH") or None   # None = Playwright's bundled Chromium
 BUY_URL = "https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer"
 
 EXAMPLE_UI = {
