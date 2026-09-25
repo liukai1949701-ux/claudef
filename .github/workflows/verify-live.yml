@@ -1,0 +1,29 @@
+name: Verify live storefront
+
+on:
+  push:
+    branches: [gh-pages]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the deployed site (with full history of all branches)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: site
+      - name: Fetch every branch for the history scan
+        working-directory: site
+        run: git fetch --no-tags origin '+refs/heads/*:refs/remotes/origin/*'
+      - name: Verify
+        working-directory: site
+        env:
+          SITE_URL: https://liukai1949701-ux.github.io/claudef/
+          BUY_URL: https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer
+          SITE_DIR: .
+        run: python3 .github/verify_live.py

@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+"""Verify the live DoorMath storefront on GitHub Pages.
+
+Checks: every deployed file is served; every link and image on every page resolves;
+Buy buttons point at the exact product URL; no paid deliverable is reachable or
+committed anywhere in the repository history; no placeholder tokens remain.
+"""
+import html.parser
+import os
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+
+BASE = os.environ["SITE_URL"].rstrip("/") + "/"
+BUY = os.environ["BUY_URL"]
+SITE_DIR = os.environ.get("SITE_DIR", "site")
+UA = {"User-Agent": "Mozilla/5.0 (DoorMath live check)"}
+failures = []
+
+
+def get(url, method="GET"):
+    req = urllib.request.Request(url, headers=UA, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return r.status, r.geturl(), r.read() if method == "GET" else b""
+    except urllib.error.HTTPError as e:
+        return e.code, url, b""
+    except Exception as e:  # network error
+        return str(e), url, b""
+
+
+class Links(html.parser.HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        for k in ("href", "src", "srcset", "content"):
+            v = a.get(k)
+            if not v:
+                continue
+            if k == "srcset":
+                for part in v.split(","):
+                    self.links.append((tag, part.strip().split(" ")[0]))
+            elif k == "content":
+                if v.startswith("http"):
+                    self.links.append((tag, v))
+            else:
+                self.links.append((tag, v))
+
+
+def fail(msg):
+    print("FAIL", msg)
+    failures.append(msg)
+
+
+# 1. wait until the Pages site serves the current index
+for i in range(40):
+    code, _, body = get(BASE)
+    if code == 200:
+        break
+    print(f"waiting for Pages ({code})")
+    time.sleep(15)
+print("index:", code)
+
+# 2. every deployed file is served
+files = []
+for root, dirs, fs in os.walk(SITE_DIR):
+    dirs[:] = [d for d in dirs if not d.startswith(".") and d != "tests"]
+    for f in fs:
+        if f.startswith("."):
+            continue
+        rel = os.path.relpath(os.path.join(root, f), SITE_DIR).replace(os.sep, "/")
+        files.append(rel)
+for rel in sorted(files):
+    code, _, body = get(BASE + rel)
+    if code != 200:
+        fail(f"deployed file not served: {rel} -> {code}")
+    if rel.endswith((".html", ".xml", ".txt")) and b"{{" in body:
+        fail(f"placeholder token left in {rel}")
+print(f"{len(files)} deployed files checked")
+
+# 3. links on every page
+checked = {}
+for rel in [f for f in files if f.endswith(".html")]:
+    page_url = BASE + rel
+    code, _, body = get(page_url)
+    p = Links()
+    p.feed(body.decode("utf-8", "replace"))
+    buys = 0
+    for tag, link in p.links:
+        if link.startswith(("mailto:", "tel:", "data:", "javascript:")):
+            continue
+        url = urllib.parse.urljoin(page_url, link)
+        frag = urllib.parse.urlparse(url).fragment
+        base = url.split("#")[0]
+        if "myshopify.com" in url:
+            buys += 1
+            if url != BUY:
+                fail(f"{rel}: buy link {url} != {BUY}")
+        if any(base.lower().endswith(x) for x in (".xlsx", ".zip", ".xls")):
+            fail(f"{rel}: links to a downloadable deliverable {base}")
+        if base not in checked:
+            checked[base] = get(base)[0]
+        if checked[base] != 200:
+            fail(f"{rel}: broken link {url} -> {checked[base]}")
+    print(f"{rel}: {len(p.links)} links, {buys} buy links")
+    if rel == "index.html" and buys < 2:
+        fail("index.html has fewer than 2 buy links")
+
+# 4. the product URL itself
+code, final, body = get(BUY)
+print(f"BUY URL {BUY} -> HTTP {code}, final URL {final}")
+if "/password" in final:
+    print("NOTE: the Shopify storefront is password-protected (store not yet open for sales).")
+if code not in (200,) and "/password" not in final:
+    fail(f"buy URL not reachable: {code}")
+
+# 5. paid deliverable must not be reachable on the site
+for path in ("DoorMath-Deal-Analyzer.xlsx", "DoorMath-Deal-Analyzer-Blank.xlsx",
+             "DoorMath-Deal-Analyzer-v1.0.0.zip", "dist/DoorMath-Deal-Analyzer-v1.0.0.zip",
+             "assets/DoorMath-Deal-Analyzer.xlsx", "src/build_workbook.py"):
+    code = get(BASE + path)[0]
+    print(f"paid path {path} -> {code}")
+    if code == 200:
+        fail(f"paid file reachable: {path}")
+
+# 6. nothing paid was ever committed to any branch
+out = subprocess.run(["git", "log", "--all", "--name-only", "--pretty=format:"], capture_output=True, text=True,
+                     check=True).stdout.split()
+bad = sorted({f for f in out if f.lower().endswith((".xlsx", ".xls", ".zip")) or f.endswith(
+    ("build_workbook.py", "reference.py", "inject_values.py", "package.py"))})
+print(f"history scan: {len(set(out))} paths across all branches")
+if bad:
+    fail(f"paid/private files in git history: {bad}")
+
+print("RESULT:", "PASS" if not failures else f"FAIL ({len(failures)})")
+sys.exit(1 if failures else 0)

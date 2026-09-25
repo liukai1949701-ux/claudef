@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DoorMath — Rental Property Deal Analyzer (Excel &amp; Google Sheets)</title>
+<meta name="description" content="One spreadsheet that runs any rental deal as a long-term rental, BRRRR, flip or Airbnb, with a max-offer solver and 30-year IRR. $29 one-time. Free calculator.">
+<link rel="canonical" href="https://liukai1949701-ux.github.io/claudef/">
+<meta name="theme-color" content="#1F2A44">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="DoorMath">
+<meta property="og:title" content="DoorMath — Rental Property Deal Analyzer">
+<meta property="og:description" content="Analyze any rental deal four ways in one spreadsheet you own: long-term rental, BRRRR, fix &amp; flip and Airbnb, plus a max-offer solver and 30-year IRR. $29 one-time.">
+<meta property="og:url" content="https://liukai1949701-ux.github.io/claudef/">
+<meta property="og:image" content="https://liukai1949701-ux.github.io/claudef/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DoorMath rental property deal analyzer spreadsheet: rental, BRRRR, flip and Airbnb in one workbook.">
+<meta property="product:price:amount" content="29.00">
+<meta property="product:price:currency" content="USD">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DoorMath — Rental Property Deal Analyzer">
+<meta name="twitter:description" content="Know your max offer before you call the agent. Rental, BRRRR, flip and Airbnb in one spreadsheet. $29 one-time.">
+<meta name="twitter:image" content="https://liukai1949701-ux.github.io/claudef/assets/og.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "DoorMath — Rental Property Deal Analyzer",
+  "description": "A single Excel workbook (.xlsx, no macros) for real-estate investors. Analyze a deal as a long-term rental, BRRRR, fix & flip or short-term rental (Airbnb/VRBO), with a max-offer solver, 30-year projection with IRR, sensitivity grids and a five-deal comparison. Works with functions supported by Excel 2010+, Google Sheets and LibreOffice.",
+  "image": [
+    "https://liukai1949701-ux.github.io/claudef/assets/product/cover.jpg",
+    "https://liukai1949701-ux.github.io/claudef/assets/og.png"
+  ],
+  "brand": { "@type": "Brand", "name": "DoorMath" },
+  "url": "https://liukai1949701-ux.github.io/claudef/",
+  "offers": {
+    "@type": "Offer",
+    "price": "29.00",
+    "priceCurrency": "USD",
+    "url": "https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+
+<link rel="preload" as="image" href="assets/img/summary-hero-800.webp" imagesrcset="assets/img/summary-hero-800.webp 800w, assets/img/summary-hero-1440.webp 1440w" imagesizes="(min-width: 1180px) 600px, (min-width: 980px) 52vw, calc(100vw - 40px)">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/calc-core.js" defer></script>
+<script src="assets/calc.js" defer></script>
+<script src="assets/site.js" defer></script>
+</head>
+<body data-buy-url="https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="14" fill="#1F2A44"/>
+    <path d="M19 55V15.5A3.5 3.5 0 0 1 22.5 12h19a3.5 3.5 0 0 1 3.5 3.5V55z" fill="#FFF4CC"/>
+    <path d="M32 12v43M19 27h26M19 41h26" stroke="#1F2A44" stroke-width="2.4" opacity=".28"/>
+    <circle cx="39.5" cy="34" r="2.8" fill="#0F766E"/>
+    <path d="M11 55h42" stroke="#14B8A6" stroke-width="3.2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".14"/><path d="m7.5 12.4 3 3 6-6.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-zoom" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m15.5 15.5 5 5M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 9h17M3.5 14.5h17M9.5 3.5v17" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".12"/><path d="m8.5 8.5 7 7m0-7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3.5h6M10 3.5v5.2L4.8 18a2 2 0 0 0 1.8 2.5h10.8a2 2 0 0 0 1.8-2.5L14 8.7V3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M7.4 14.5h9.2" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="4.5" y="2.5" width="15" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 7h8M8 12h1M11.5 12h1M15 12h1M8 16h1M11.5 16h1M15 16h1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" transform="translate(0 -1)"/></symbol>
+  <symbol id="i-zip" viewBox="0 0 24 24"><path d="M6 2.5h8l4.5 4.5v14.5H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 4v2h1.5v2H11v2h1.5v2H11" stroke="currentColor" stroke-width="1.6"/><rect x="10.2" y="13.5" width="3.1" height="3.5" rx=".8" fill="currentColor"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="DoorMath home">
+      <svg aria-hidden="true"><use href="#i-logo"/></svg>
+      <span>Door<span class="accent">Math</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#calculator">Calculator</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#included">What's included</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm header-cta" href="https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer" rel="noopener" data-buy>Buy $29</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="pill"><span class="dot" aria-hidden="true"></span>Rental property deal analyzer · Excel workbook</span></p>
+      <h1 id="hero-title">Know your <span class="hl">max offer</span> before you call the agent.</h1>
+      <p class="hero-sub">
+        <strong>DoorMath</strong> is one spreadsheet that runs any deal as a <strong>long-term rental</strong>, a <strong>BRRRR</strong>, a <strong>fix &amp; flip</strong> and an <strong>Airbnb / short-term rental</strong>, with a <strong>30-year IRR</strong> projection and a <strong>max-offer solver</strong> that finds the highest price that still meets your targets.
+      </p>
+      <div class="price-block"><span class="amount">$29</span><span class="per">one-time · no subscription</span></div>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" href="https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer" rel="noopener" data-buy>Buy DoorMath — $29</a>
+        <a class="btn btn-secondary btn-lg" href="#calculator">Try the free calculator</a>
+      </div>
+      <ul class="trust" aria-label="Purchase details">
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>One-time $29</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Instant download</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Excel, Google Sheets, LibreOffice</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>No macros</li>
+      </ul>
+    </div>
+
+    <div class="hero-visual">
+      <div class="app-frame">
+        <div class="app-bar" aria-hidden="true">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="file"><svg><use href="#i-sheet"/></svg>DoorMath-Deal-Analyzer.xlsx</span>
+        </div>
+        <a class="zoom" href="assets/img/summary-full.webp" data-caption="Summary tab: the example duplex on one print-ready page for a lender or partner." aria-haspopup="dialog">
+          <img src="assets/img/summary-hero-800.webp"
+               srcset="assets/img/summary-hero-800.webp 800w, assets/img/summary-hero-1440.webp 1440w"
+               sizes="(min-width: 1180px) 600px, (min-width: 980px) 52vw, calc(100vw - 40px)"
+               width="1440" height="950" fetchpriority="high"
+               alt="DoorMath Summary tab for the example duplex at 1418 Linden Ave: rental metrics checked against targets (1 of 4 pass), a max offer of $181,152, long-term rental, short-term rental, BRRRR and fix &amp; flip side by side, and a 10-year hold with a 12.5% IRR.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">Enlarge</span></span>
+        </a>
+        <div class="sheet-tabs" aria-hidden="true">
+          <span>Start Here</span><span>Inputs</span><span class="active">Summary</span><span>Rental</span><span>Max Offer</span><span>BRRRR</span><span>Flip</span><span>STR</span><span>Projection</span><span>Sensitivity</span><span>Compare</span><span>Amortization</span><span>Glossary</span>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="label">Max offer · example duplex</span>
+        <b>$181,152</b>
+        vs. $239,000 asking. Limited by your cash-on-cash target.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats" aria-label="At a glance">
+  <div class="wrap">
+    <ul>
+      <li><b>13</b><span>tabs in one workbook</span></li>
+      <li><b>4</b><span>strategies per deal</span></li>
+      <li><b>30</b><span>years projected, with IRR</span></li>
+      <li><b>5</b><span>deals side by side</span></li>
+      <li><b>0</b><span>macros, logins or renewals</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CALCULATOR ============ -->
+<section class="section section-soft" id="calculator" aria-labelledby="calc-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Free tool · no sign-up</p>
+      <h2 id="calc-title">Free rental property calculator</h2>
+      <p class="lead">Run the long-term rental numbers on any deal, using the same formulas as the workbook's Rental tab. It starts with the example duplex from the screenshots. Change any yellow field and the results update.</p>
+    </div>
+
+    <div class="calc">
+      <form class="calc-form" id="calc-form" autocomplete="off" novalidate>
+        <fieldset>
+          <legend><span class="step" aria-hidden="true">1</span>Property &amp; loan</legend>
+          <div class="fields">
+            <div class="field"><label for="f-units">Units (doors)</label><div class="input"><input id="f-units" name="units" inputmode="decimal" value="2"></div></div>
+            <div class="field"><label for="f-price">Purchase price</label><div class="input"><span class="affix" aria-hidden="true">$</span><input id="f-price" name="price" inputmode="decimal" value="239,000" data-money></div></div>
+            <div class="field"><label for="f-down_pct">Down payment</label><div class="input"><input id="f-down_pct" name="down_pct" inputmode="decimal" value="25"><span class="affix after" aria-hidden="true">%</span></div></div>
+            <div class="field"><label for="f-rate">Interest rate</label><div class="input"><input id="f-rate" name="rate" inputmode="decimal" value="7.00"><span class="affix after" aria-hidden="true">%</span></div></div>
+            <div class="field"><label for="f-term_years">Loan term</label><div class="input"><input id="f-term_years" name="term_years" inputmode="decimal" value="30"><span class="affix after" aria-hidden="true">years</span></div></div>
+            <div class="field"><label for="f-closing_pct">Closing costs <span class="hint">% of price</span></label><div class="input"><input id="f-closing_pct" name="closing_pct" inputmode="decimal" value="3"><span class="affix after" aria-hidden="true">%</span></div></div>
+            <div class="field"><label for="f-points_pct">Loan points <span class="hint">% of loan</span></label><div class="input"><input id="f-points_pct" name="points_pct" inputmode="decimal" value="0"><span class="affix after" aria-hidden="true">%</span></div></div>
+            <div class="field"><label for="f-repairs">Up-front repairs <span class="hint">paid in cash</span></label><div class="input"><span class="affix" aria-hidden="true">$</span><input id="f-repairs" name="repairs" inputmode="decimal" value="18,000" data-money></div></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="step" aria-hidden="true">2</span>Income (per month)</legend>
+          <div class="fields">
+            <div class="field"><label for="f-rent">Rent, all units</label><div class="input"><span class="affix" aria-hidden="true">$</span><input id="f-rent" name="rent" inputmode="decimal" value="2,500" data-money><span class="affix after" aria-hidden="true">/mo</span></div></div>
+            <div class="field"><label for="f-other_income">Other income <span class="hint">laundry, parking, pets</span></label><div class="input"><span class="affix" aria-hidden="true">$</span><input id="f-other_income" name="other_income" inputmode="decimal" value="60" data-money><span class="affix after" aria-hidden="true">/mo</span></div></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="step" aria-hidden="true">3</span>Operating expenses</legend>
+          <div class="fields">
+            <div class="field"><label for="f-taxes_yr">Property taxes</label><div class="input"><span class="affix" aria-hidden="true">$</span><input id="f-taxes_yr" name="taxes_yr" inputmode="decimal" value="3,300" data-money><span class="affix after" aria-hidden="true">/yr</span></div></div>
+            <div class="field"><label for="f-insurance_yr">Insurance</label><div class="input"><span class="affix" aria-hidden="true">$</span><input id="f-insurance_yr" name="insurance_yr" inputmode="decimal" value="1,450" data-money><span class="affix after" aria-hidden="true">/yr</span></div></div>
+            <div class="field"><label for="f-hoa_mo">HOA</label><div class="input"><span class="affix" aria-hidden="true">$</span><input id="f-hoa_mo" name="hoa_mo" inputmode="decimal" value="0" data-money><span class="affix after" aria-hidden="true">/mo</span></div></div>
+            <div class="field"><label for="f-utilities_other_mo">Utilities + other <span class="hint">owner-paid</span></label><div class="input"><span class="affix" aria-hidden="true">$</span><input id="f-utilities_other_mo" name="utilities_other_mo" inputmode="decimal" value="200" data-money><span class="affix after" aria-hidden="true">/mo</span></div></div>
+            <div class="field"><label for="f-vacancy_pct">Vacancy <span class="hint">% of gross income</span></label><div class="input"><input id="f-vacancy_pct" name="vacancy_pct" inputmode="decimal" value="6"><span class="affix after" aria-hidden="true">%</span></div></div>
+            <div class="field"><label for="f-maint_pct">Repairs &amp; maintenance <span class="hint">% of gross income</span></label><div class="input"><input id="f-maint_pct" name="maint_pct" inputmode="decimal" value="5"><span class="affix after" aria-hidden="true">%</span></div></div>
+            <div class="field"><label for="f-capex_pct">CapEx reserve <span class="hint">% of gross income</span></label><div class="input"><input id="f-capex_pct" name="capex_pct" inputmode="decimal" value="5"><span class="affix after" aria-hidden="true">%</span></div></div>
+            <div class="field"><label for="f-mgmt_pct">Management <span class="hint">% of collected income</span></label><div class="input"><input id="f-mgmt_pct" name="mgmt_pct" inputmode="decimal" value="8"><span class="affix after" aria-hidden="true">%</span></div></div>
+          </div>
+        </fieldset>
+
+        <div class="calc-mini" aria-hidden="true">
+          <span>Cash flow <b id="mini-cf">$169</b>/mo</span>
+          <span>Cash-on-cash <b id="mini-coc">2.4%</b></span>
+        </div>
+      </form>
+
+      <div class="calc-results">
+        <div class="result-card on-dark" id="results">
+          <h3>Long-term rental results <small>Monthly</small></h3>
+          <div class="big-result">
+            <span class="value" id="out-cf" data-value="169.49994405798247">$169</span>
+            <span class="unit">cash flow / month</span>
+          </div>
+          <p class="sub-result"><b id="out-cf-door">$85</b> per door · <b id="out-cf-yr">$2,034</b> per year</p>
+          <dl class="metrics">
+            <div class="metric"><dt>Cash-on-cash return</dt><dd id="out-coc">2.4%</dd></div>
+            <div class="metric"><dt>Cap rate</dt><dd id="out-cap">6.8%</dd></div>
+            <div class="metric"><dt>DSCR</dt><dd id="out-dscr">1.14x</dd></div>
+            <div class="metric"><dt>1% rule <span class="sr-only">(rent ÷ price + repairs)</span></dt><dd id="out-onepct">0.97%</dd></div>
+            <div class="metric"><dt>NOI (monthly)</dt><dd id="out-noi">$1,362</dd></div>
+            <div class="metric"><dt>Loan payment (P&amp;I)</dt><dd id="out-pi">$1,192.55</dd></div>
+            <div class="metric"><dt>Cash needed <span class="hint-inline">(down, closing, points, repairs)</span></dt><dd id="out-cashin">$84,920</dd></div>
+            <div class="metric"><dt>Break-even occupancy</dt><dd id="out-beo">87.4%</dd></div>
+          </dl>
+          <details class="waterfall">
+            <summary>How the cash flow adds up</summary>
+            <dl>
+              <dt>Gross income (rent + other)</dt><dd id="w-gsi">$2,560</dd>
+              <dt>Less vacancy</dt><dd id="w-vac">-$154</dd>
+              <dt>Less operating expenses</dt><dd id="w-opex">-$1,044</dd>
+              <dt class="total">Net operating income</dt><dd class="total" id="w-noi">$1,362</dd>
+              <dt>Less loan payment (P&amp;I)</dt><dd id="w-pi">-$1,193</dd>
+              <dt class="total">Cash flow</dt><dd class="total" id="w-cf">$169</dd>
+              <dt>Gross rent multiplier</dt><dd id="out-grm">8.0</dd>
+            </dl>
+          </details>
+          <div class="result-actions">
+            <button type="button" class="link-btn" id="calc-reset">Reset to the example deal</button>
+            <p class="privacy-note">Runs in your browser. Nothing is sent anywhere.</p>
+          </div>
+          <p class="sr-only" id="calc-live" aria-live="polite"></p>
+        </div>
+        <p class="calc-footnote">Estimates only. Income taxes and depreciation are not modeled. Vacancy, repairs and CapEx are a % of gross income; management is a % of collected income.</p>
+      </div>
+    </div>
+
+    <aside class="locked" aria-labelledby="locked-title">
+      <div>
+        <h3 id="locked-title"><svg aria-hidden="true"><use href="#i-lock"/></svg>Locked in the full workbook</h3>
+        <p>The calculator above covers one strategy. The workbook runs the same deal every other way you'd want to check before you make an offer.</p>
+        <ul class="locked-list">
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Max offer for your targets</strong>Highest price that meets your cash flow, cash-on-cash, cap rate and DSCR targets.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>BRRRR refinance</strong>Cash back at refi, cash left in the deal, post-refi cash flow.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Fix &amp; flip profit</strong>Every cost, net profit, annualized return, 70% rule.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Airbnb / STR seasonality</strong>12 months of nightly rates and occupancy vs. a long-term lease.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>30-year IRR if sold in any year</strong>Loan paydown, appreciation, equity and exit proceeds.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Sensitivity grids</strong>Cash flow by price × rent; cash-on-cash by rate × down payment.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Compare 5 deals</strong>Side by side, ranked by cash-on-cash.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Print-ready summary</strong>One page for a lender or partner.</span></li>
+        </ul>
+      </div>
+      <div class="locked-cta">
+        <span class="price">$29</span>
+        <span class="small">one-time · instant download</span>
+        <a class="btn btn-primary btn-lg" href="https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer" rel="noopener" data-buy>Get the full workbook</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section" id="features" aria-labelledby="features-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Four strategies, one workbook</p>
+      <h2 id="features-title">Type the deal in once. See it four ways.</h2>
+      <p class="lead">Enter the property on the Inputs tab and every strategy tab recalculates from the same numbers, with PASS/FAIL checks against the targets you set: cash flow per door, cash-on-cash, cap rate and DSCR.</p>
+    </div>
+
+    <div class="feature-grid">
+      <article class="card">
+        <a class="zoom shot" href="assets/img/rental-full.webp" data-caption="Rental tab: long-term rental income statement, returns and ratios with PASS/FAIL checks, year-1 total return." aria-haspopup="dialog">
+          <img src="assets/img/rental-detail-1006.webp" width="1006" height="698" loading="lazy" decoding="async"
+               alt="Rental tab detail: purchase and financing totals, then returns and ratios (cash flow per door $85, cash-on-cash 2.4%, cap rate 6.8%, DSCR 1.14x, 1% rule 0.97%) each checked against a target, with one PASS and four FAIL.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">View full tab</span></span>
+        </a>
+        <div class="card-body">
+          <span class="tag">Rental tab</span>
+          <h3>Long-term rental</h3>
+          <p>A full income statement from gross rent to cash flow, plus the ratios lenders and investors ask about.</p>
+          <ul class="checks">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>NOI, cash flow and cash flow per door</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Cash-on-cash, cap rate, DSCR, 1% rule, GRM</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Break-even occupancy and year-1 total return</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="zoom shot" href="assets/img/brrrr-full.webp" data-caption="BRRRR tab: buy and rehab with a short-term loan, refinance at ARV × LTV, then rent." aria-haspopup="dialog">
+          <img src="assets/img/brrrr-detail-986.webp" width="986" height="780" loading="lazy" decoding="async"
+               alt="BRRRR tab detail: purchase, closing, rehab, short-term loan points, interest and holding costs, then a refinance at the after-repair value showing cash back at refinance, percent of cash recovered and cash left in the deal.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">View full tab</span></span>
+        </a>
+        <div class="card-body">
+          <span class="tag">BRRRR tab</span>
+          <h3>BRRRR</h3>
+          <p>Hard-money purchase and rehab, then a refinance at ARV × LTV. See how much of your cash comes back.</p>
+          <ul class="checks">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Cash back at refi, cash left in the deal, % recovered</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Post-refi cash flow and DSCR on the new loan</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Cash-on-cash on the cash left in, or “Infinite (all cash back)” when all your cash comes back and cash flow stays positive</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="zoom shot" href="assets/img/flip-full.webp" data-caption="Flip tab: project costs, profit and return, 70% rule and minimum-profit offer guides." aria-haspopup="dialog">
+          <img src="assets/img/flip-detail-1172.webp" width="1172" height="954" loading="lazy" decoding="async"
+               alt="Flip tab detail: sale price, purchase, closing, rehab, loan points, interest, holding and selling costs, then net profit, cash invested, return on cash, annualized return and margin, with 70% rule and minimum-profit offer checks.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">View full tab</span></span>
+        </a>
+        <div class="card-body">
+          <span class="tag">Flip tab</span>
+          <h3>Fix &amp; flip</h3>
+          <p>Every cost from closing to the selling agent, so the profit number is the real one.</p>
+          <ul class="checks">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Net profit, return on cash, annualized return, margin</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>70% rule check and max price for your minimum profit</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Short-term loan interest, points and holding costs</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="zoom shot" href="assets/img/str-full.webp" data-caption="STR tab: 12-month nightly rate and occupancy seasonality, co-host fee and other costs, results, and a long-term vs short-term comparison." aria-haspopup="dialog">
+          <img src="assets/img/str-detail-1182.webp" width="1182" height="632" loading="lazy" decoding="async"
+               alt="STR tab detail: a month-by-month model with yellow nightly-rate and occupancy inputs, booked nights, stays, room, cleaning and gross revenue, then the short-term rental results (cash-on-cash 0.2%, break-even occupancy 65.7%, about $21 a month) and the long-term vs short-term comparison.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">View full tab</span></span>
+        </a>
+        <div class="card-body">
+          <span class="tag">STR tab</span>
+          <h3>Airbnb / short-term rental</h3>
+          <p>Nightly rate and occupancy for each of the 12 months, because a July weekend and a February Tuesday are not the same.</p>
+          <ul class="checks">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Co-host fee, cleaning fees and costs, platform fee, supplies</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Break-even occupancy for the short-term rental</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Long-term vs short-term, side by side</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <div class="tools-head">
+      <h3>Plus the tabs that help you decide</h3>
+      <p class="muted small" style="margin:0">Click any screenshot to enlarge it.</p>
+    </div>
+    <div class="tool-grid">
+      <article class="card">
+        <a class="zoom shot top" href="assets/img/projection-full.webp" data-caption="Projection tab: 30 years of rent and expense growth, loan paydown, appreciation, equity and IRR if sold in any year." aria-haspopup="dialog">
+          <img src="assets/img/projection-800.webp" width="800" height="572" loading="lazy" decoding="async"
+               alt="Projection tab: a 30-year table of income, expenses, cash flow, loan balance, property value, equity, net sale proceeds and IRR if sold in each year, with charts of property value, loan balance and equity, and of annual cash flow.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">Enlarge</span></span>
+        </a>
+        <div class="card-body">
+          <h3>30-year projection &amp; IRR</h3>
+          <p>Rent and expense growth, loan paydown, appreciation, equity, net sale proceeds, equity multiple and IRR if you sell in any year from 1 to 30.</p>
+        </div>
+      </article>
+      <article class="card">
+        <a class="zoom shot" href="assets/img/sensitivity-full.webp" data-caption="Sensitivity tab: monthly cash flow by price and rent, cash-on-cash by interest rate and down payment. Your current deal is outlined in the center." aria-haspopup="dialog">
+          <img src="assets/img/sensitivity-800.webp" width="800" height="493" loading="lazy" decoding="async"
+               alt="Sensitivity tab: two heat-mapped grids with the current deal outlined in the center, monthly cash flow for purchase price ±15% by rent ±15%, and cash-on-cash return for interest rate ±1.5% by down payment ±15% (10% to 40% for the example's 25% down).">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">Enlarge</span></span>
+        </a>
+        <div class="card-body">
+          <h3>Sensitivity grids</h3>
+          <p>Cash flow for price ±15% × rent ±15%, and cash-on-cash for rate ±1.5% × your down payment ±15%. Your deal is the outlined center cell. Plain formulas, so they work in Google Sheets.</p>
+        </div>
+      </article>
+      <article class="card">
+        <a class="zoom shot top" href="assets/img/compare-full.webp" data-caption="Compare tab: up to five rentals side by side, ranked by cash-on-cash return." aria-haspopup="dialog">
+          <img src="assets/img/compare-800.webp" width="800" height="882" loading="lazy" decoding="async"
+               alt="Compare tab: inputs and results for deals A to E in columns, including loan payment, NOI, monthly cash flow, cash-on-cash, cap rate, DSCR, targets met and rank by cash-on-cash, with a cash-on-cash bar chart by deal.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">Enlarge</span></span>
+        </a>
+        <div class="card-body">
+          <h3>Compare 5 deals</h3>
+          <p>Line up five rentals side by side and see them ranked by cash-on-cash, with targets met for each.</p>
+        </div>
+      </article>
+      <article class="card">
+        <a class="zoom shot top" href="assets/img/inputs-full.webp" data-caption="Inputs tab: every input in yellow cells, a live results panel with PASS/FAIL checks, and an input check that turns green once the key inputs are entered." aria-haspopup="dialog">
+          <img src="assets/img/inputs-800.webp" width="800" height="747" loading="lazy" decoding="async"
+               alt="Inputs tab: yellow input cells for property, purchase loan, rental income, operating expenses, growth and exit, targets, rehab financing and refinance, beside a live results panel with PASS and FAIL checks and a green input check reading: OK, all key inputs entered.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">Enlarge</span></span>
+        </a>
+        <div class="card-body">
+          <h3>Inputs &amp; live results</h3>
+          <p>Every input on one tab in yellow cells, with a live results panel and an input check that turns green once the key inputs are in.</p>
+        </div>
+      </article>
+    </div>
+    <div class="also">
+      <span><b>Amortization</b> 360-month schedule + yearly totals</span>
+      <span><b>Glossary</b> key metrics and how each is calculated</span>
+      <span><b>Summary</b> one print-ready page for a lender or partner</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAX OFFER SPOTLIGHT ============ -->
+<section class="section spotlight on-dark" id="max-offer" aria-labelledby="max-title">
+  <div class="wrap">
+    <div class="story">
+      <div>
+        <p class="eyebrow">Max Offer solver</p>
+        <h2 id="max-title">The asking price is $239,000. Your targets say $181,152.</h2>
+        <p class="lead">Take the example duplex in the screenshots: 1418 Linden Ave, $2,500 a month in rent, 25% down at 7.00% on a 30-year loan. As a long-term rental it cash-flows <strong>$169 a month ($85 per door)</strong>. The cap rate passes at 6.8%. Cash-on-cash is 2.4% against an 8% target, and the DSCR is 1.14x.</p>
+        <p>So what <em>should</em> you offer? The Max Offer tab solves for the highest purchase price that meets each of your targets. It uses a closed-form solve, not trial and error, and then re-computes each metric at that price so you can see it land on your target. For this deal, <strong>$181,152 meets all four rental targets</strong>, and cash-on-cash is the one that sets the limit.</p>
+        <p>It also gives the 70%-rule flip MAO and the max offer for the flip profit you want. That's a number to have before you call the agent.</p>
+      </div>
+      <div>
+        <div class="price-compare">
+          <div class="pc"><div class="k">Asking price</div><div class="v">$239,000</div><div class="n">1 of 4 rental targets met</div></div>
+          <div class="pc win"><div class="k">Max offer</div><div class="v">$181,152</div><div class="n">meets all four targets</div></div>
+        </div>
+        <table class="target-table">
+          <caption>At the asking price</caption>
+          <thead><tr><th scope="col">Metric</th><th scope="col">Result</th><th scope="col">Target</th><th scope="col">Check</th></tr></thead>
+          <tbody>
+            <tr><td>Cash flow per door</td><td>$85</td><td>$150</td><td><span class="badge fail">FAIL</span></td></tr>
+            <tr><td>Cash-on-cash return</td><td>2.4%</td><td>8.0%</td><td><span class="badge fail">FAIL</span></td></tr>
+            <tr><td>Cap rate</td><td>6.8%</td><td>6.0%</td><td><span class="badge pass">PASS</span></td></tr>
+            <tr><td>DSCR</td><td>1.14x</td><td>1.25x</td><td><span class="badge fail">FAIL</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <figure style="margin:0">
+      <a class="zoom shot-frame" href="assets/img/max-offer-full.webp" data-caption="Max Offer tab: the highest price for each rental target, the flip offer guides, and how the solver works." aria-haspopup="dialog">
+        <picture>
+          <source media="(max-width: 700px)" srcset="assets/img/max-offer-narrow-1276.webp" width="1276" height="380">
+          <img src="assets/img/max-offer-detail-2083.webp" width="2083" height="380" loading="lazy" decoding="async"
+             alt="Max Offer tab: maximum price for each rental target (cash flow per door $212,846, cash-on-cash $181,152, cap rate $272,411, DSCR $218,376), each re-checked at that price, and a max offer that meets all four rental targets of $181,152, limited by cash-on-cash return.">
+        </picture>
+        <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">View full tab</span></span>
+      </a>
+      <figcaption class="shot-caption">From the Max Offer tab. The last column re-computes each metric at the max price, so you can check it.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ AIRBNB ============ -->
+<section class="section" id="airbnb" aria-labelledby="airbnb-title">
+  <div class="wrap versus">
+    <div>
+      <p class="eyebrow">Long-term vs. short-term</p>
+      <h2 id="airbnb-title">Then check whether the Airbnb math survives real fees.</h2>
+      <p class="lead">Same duplex, same loan. The STR tab models 12 months of nightly rates and occupancy, then takes out a 20% co-host fee, cleaning, platform fees and supplies, and adds $16,000 of furnishing to the cash you put in.</p>
+      <div class="vs-cards">
+        <div class="vs hi">
+          <h3>Long-term rental</h3>
+          <div class="v">$2,034</div><div class="per">cash flow / year</div>
+          <dl><dt>Per month</dt><dd>$169</dd><dt>Cash-on-cash</dt><dd>2.4%</dd><dt>Cash invested</dt><dd>$84,920</dd><dt>Management</dt><dd>8%</dd></dl>
+          <p class="vs-tag">Higher annual cash flow</p>
+        </div>
+        <div class="vs">
+          <h3>Short-term rental</h3>
+          <div class="v">$249</div><div class="per">cash flow / year</div>
+          <dl><dt>Per month</dt><dd>$21</dd><dt>Cash-on-cash</dt><dd>0.2%</dd><dt>Cash invested</dt><dd>$100,920</dd><dt>Co-host fee</dt><dd>20%</dd></dl>
+        </div>
+      </div>
+      <div class="occ">
+        <div class="occ-head"><span><i class="lg lg-mark" aria-hidden="true"></i>Break-even occupancy <b>65.7%</b></span><span><i class="lg lg-fill" aria-hidden="true"></i>Projected occupancy <b>66.3%</b></span></div>
+        <div class="occ-bar" aria-hidden="true">
+          <span class="occ-fill" style="width:66.3%"></span>
+          <span class="occ-mark" style="left:65.7%"></span>
+        </div>
+        <p class="occ-note">Short-term rental, example duplex. Less than one point of cushion. A slightly slower year turns it negative.</p>
+      </div>
+      <p>With a paid co-host, the short-term version barely breaks even, and you see that on the STR tab before you buy furniture. The workbook asks you to compare like with like: self-managing changes both columns, so use the same management choice for each.</p>
+      <p class="note"><svg aria-hidden="true"><use href="#i-info"/></svg><span>Short-term rentals also take more of your time and carry more regulation risk. Check local rules, permits and HOA restrictions. DoorMath gives you the numbers; you make the call.</span></p>
+      <p class="muted small" style="margin-top:14px">Kept as a long-term rental and sold after 10 years, the Projection tab puts the same deal at a <strong>12.5% IRR</strong>.</p>
+    </div>
+    <div>
+      <figure class="framed" style="margin:0">
+        <a class="zoom" href="assets/img/str-full.webp" data-caption="STR tab: seasonal nightly rates and occupancy, a 20% co-host fee and other costs, compared with a long-term lease on the same property and loan." aria-haspopup="dialog">
+          <img src="assets/img/str-chart-634.webp" width="634" height="332" loading="lazy" decoding="async"
+               alt="Bar chart from the STR tab: monthly gross revenue as a short-term rental, from about $2,600 in January to about $6,800 in July, compared with a flat long-term rental income of about $2,400 a month. Gross revenue is before the co-host fee, cleaning and other costs.">
+          <span class="zoom-hint" aria-hidden="true"><svg><use href="#i-zoom"/></svg><span class="zh-t">View full tab</span></span>
+        </a>
+        <figcaption>Monthly gross revenue, before fees and costs</figcaption>
+      </figure>
+      <figure class="framed" style="margin:16px 0 0">
+        <img src="assets/img/str-compare-575.webp" width="575" height="288" loading="lazy" decoding="async"
+             alt="Long-term vs short-term table from the STR tab: annual cash flow $2,034 vs $249, average monthly cash flow $169 vs $21, cash invested $84,920 vs $100,920, cash-on-cash 2.4% vs 0.2%, cap rate 6.8% vs 6.1%, net operating income $16,345 vs $14,560, management fee used 8.0% vs 20.0%. Higher annual cash flow: long-term.">
+        <figcaption>After fees, the long-term lease comes out ahead</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INCLUDED ============ -->
+<section class="section section-soft" id="included" aria-labelledby="included-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">What you get</p>
+      <h2 id="included-title">One download. Yours to keep.</h2>
+      <p class="lead">After checkout you get a ZIP with two copies of the workbook, a quick-start guide and the plain-text docs. Version 1.0.0.</p>
+    </div>
+    <div class="included">
+      <div class="panel">
+        <h3>Files in the ZIP</h3>
+        <ul class="files">
+          <li><span class="ficon xlsx" aria-hidden="true">XLSX</span><div><code>DoorMath-Deal-Analyzer.xlsx</code><span class="fdesc">The workbook, pre-filled with the worked example deal so you can explore every tab. It opens with calculated values stored, so file previews show numbers.</span></div></li>
+          <li><span class="ficon xlsx" aria-hidden="true">XLSX</span><div><code>DoorMath-Deal-Analyzer-Blank.xlsx</code><span class="fdesc">Property fields empty, typical assumptions pre-filled. Checks show “—” instead of PASS/FAIL until you enter a deal. Start new deals here.</span></div></li>
+          <li><span class="ficon pdf" aria-hidden="true">PDF</span><div><code>DoorMath-Quick-Start-Guide.pdf</code><span class="fdesc">A walkthrough of every tab.</span></div></li>
+          <li><span class="ficon txt" aria-hidden="true">TXT</span><div><code>README.txt</code><span class="fdesc">Start in three steps, and how to open it in each app.</span></div></li>
+          <li><span class="ficon txt" aria-hidden="true">TXT</span><div><code>LICENSE.txt</code><span class="fdesc">Personal and single-business use.</span></div></li>
+          <li><span class="ficon txt" aria-hidden="true">TXT</span><div><code>CHANGELOG.txt</code><span class="fdesc">Version history.</span></div></li>
+        </ul>
+        <p class="zip-note"><svg aria-hidden="true"><use href="#i-zip"/></svg>Delivered as one ZIP download after checkout.</p>
+      </div>
+      <div class="panel">
+        <h3>13 tabs</h3>
+        <ol class="tabs-list">
+          <li><span><b>Start Here</b> how the workbook fits together</span></li>
+          <li><span><b>Inputs</b> every input, plus a live results panel</span></li>
+          <li><span><b>Summary</b> one print-ready page for a lender or partner</span></li>
+          <li><span><b>Rental</b> long-term rental income statement and ratios</span></li>
+          <li><span><b>Max Offer</b> highest price that meets your targets</span></li>
+          <li><span><b>BRRRR</b> rehab, refinance, cash back, cash left in</span></li>
+          <li><span><b>Flip</b> costs, profit, annualized return, 70% rule</span></li>
+          <li><span><b>STR</b> Airbnb/VRBO with 12-month seasonality</span></li>
+          <li><span><b>Projection</b> 30 years, IRR if sold in any year, with charts</span></li>
+          <li><span><b>Sensitivity</b> two heat-mapped what-if grids</span></li>
+          <li><span><b>Compare</b> 5 rentals ranked by cash-on-cash</span></li>
+          <li><span><b>Amortization</b> 360-month schedule + yearly totals</span></li>
+          <li><span><b>Glossary</b> key metrics and how each is calculated</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="built">
+      <div><b><span class="swatch" aria-hidden="true"></span>Yellow = yours</b>You type only in the yellow input cells. Everything else is a formula.</div>
+      <div><b>Locked formulas</b>Formula cells are protected so they can't be overwritten by accident. There's no password, so you can unprotect a sheet if you want to.</div>
+      <div><b>PASS / FAIL</b>Results are checked against your own targets, not someone else's rule of thumb.</div>
+      <div><b>No macros</b>No macros, add-ins or internet connection. Just an .xlsx file.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTED ============ -->
+<section class="section" id="tested" aria-labelledby="tested-title">
+  <div class="wrap tested">
+    <div>
+      <p class="eyebrow">Tested, not guessed</p>
+      <h2 id="tested-title" style="margin-bottom:18px">A spreadsheet is only useful if the math is right.</h2>
+      <p class="test-quote">Every formula is checked against an independent Python model: 271 generated workbooks, 238,564 cell-level checks, including edge cases like all-cash purchases, 0% interest, 100% financing and 30-year holds.</p>
+    </div>
+    <div class="proof">
+      <div>
+        <span class="ic" aria-hidden="true"><svg><use href="#i-flask"/></svg></span>
+        <div><h3>Recalculated in LibreOffice</h3><p>The workbook was recalculated and tested in LibreOffice. It uses only functions that Excel 2010+ and Google Sheets also support.</p></div>
+      </div>
+      <div>
+        <span class="ic" aria-hidden="true"><svg><use href="#i-sheet"/></svg></span>
+        <div><h3>No Excel-only features</h3><p>The sensitivity grids are plain formulas, not Excel Data Tables, so they recalculate in Google Sheets and LibreOffice too.</p></div>
+      </div>
+      <div>
+        <span class="ic" aria-hidden="true"><svg><use href="#i-book"/></svg></span>
+        <div><h3>Formulas you can read</h3><p>The Glossary tab explains the key metrics and how each is calculated. Sheet protection has no password, so you can inspect any formula.</p></div>
+      </div>
+      <div>
+        <span class="ic" aria-hidden="true"><svg><use href="#i-calc"/></svg></span>
+        <div><h3>Same math as the free calculator</h3><p>The calculator on this page runs the Rental-tab formulas and is tested against 83 cases from the same reference model.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPATIBILITY & LIMITS ============ -->
+<section class="section section-soft" id="limits" aria-labelledby="limits-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Compatibility &amp; honest limits</p>
+      <h2 id="limits-title">What it runs in, and what it doesn't do.</h2>
+    </div>
+    <div class="compat">
+      <div class="panel">
+        <h3>Where it works</h3>
+        <table class="compat-table">
+          <thead><tr><th scope="col">App</th><th scope="col">Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Microsoft Excel 2010 or newer<span class="status ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Supported functions</span></td><td>Windows, Mac and Microsoft 365. Uses only functions Excel 2010+ supports.</td></tr>
+            <tr><td>Google Sheets<span class="status ok"><svg aria-hidden="true"><use href="#i-check"/></svg>Supported functions</span></td><td>Free. Upload the .xlsx to Google Drive and open it with Google Sheets.</td></tr>
+            <tr><td>LibreOffice Calc<span class="status tested"><svg aria-hidden="true"><use href="#i-check"/></svg>Recalculated &amp; tested</span></td><td>Free. The workbook was recalculated and tested here.</td></tr>
+            <tr><td>Apple Numbers<span class="status no"><svg aria-hidden="true"><use href="#i-x"/></svg>Not supported</span></td><td>Not tested. On a Mac, use Excel, Google Sheets or LibreOffice.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>What it doesn't do</h3>
+        <ul class="limits">
+          <li><svg aria-hidden="true"><use href="#i-minus"/></svg><span><b>No tax modeling.</b> Income taxes, depreciation, capital-gains tax and 1031 exchanges are not modeled. Cash flow is before tax.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-minus"/></svg><span><b>No market data.</b> Every price, rent and rate is your input. Nothing is looked up for you, and nothing goes out of date.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-minus"/></svg><span><b>Not advice.</b> It's an analysis tool. It is not financial, tax or legal advice, and the results are only as good as the numbers you put in.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-minus"/></svg><span><b>Not an app.</b> There's no login and no sync. It's a file you own and open in your spreadsheet app.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="faq-title">Questions, answered</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Do I need Microsoft Excel?</summary>
+        <div class="answer"><p>No. DoorMath is a standard .xlsx file. It uses only functions supported by Excel 2010 or newer, Google Sheets and LibreOffice Calc, and the last two are free. It was recalculated and tested in LibreOffice.</p></div>
+      </details>
+      <details>
+        <summary>Does it work in Google Sheets?</summary>
+        <div class="answer"><p>Every function in the workbook is one that Google Sheets supports, and the sensitivity grids use plain formulas instead of Excel Data Tables (which Google Sheets can't run). In Google Drive, choose <em>New › File upload</em>, then open the file with Google Sheets.</p></div>
+      </details>
+      <details>
+        <summary>What about Apple Numbers?</summary>
+        <div class="answer"><p>Numbers hasn't been tested, so we don't claim it works there. On a Mac, use Excel, Google Sheets in your browser, or the free LibreOffice.</p></div>
+      </details>
+      <details>
+        <summary>Is it a subscription?</summary>
+        <div class="answer"><p>No. You pay $29 once and keep the files. There's no account, no login and no renewal. Many deal-analysis apps charge a monthly subscription; this is a spreadsheet you own.</p></div>
+      </details>
+      <details>
+        <summary>How do I get the file after purchase?</summary>
+        <div class="answer"><p>Shopify emails you a download link after checkout, and the link also appears on the order confirmation page. The download is one ZIP with the example workbook, a blank workbook, the Quick-Start Guide PDF, README, LICENSE and CHANGELOG.</p></div>
+      </details>
+      <details>
+        <summary>Can I use it for clients?</summary>
+        <div class="answer"><p>The license covers your own analysis and the internal use of one business you own or work for. You can share printed or PDF outputs, like the Summary tab, with lenders, partners, clients or advisers. You can't resell, give away or publicly share the workbook files. If more than one business needs them, buy one license per business. The full terms are in LICENSE.txt.</p></div>
+      </details>
+      <details>
+        <summary>Is this financial advice?</summary>
+        <div class="answer"><p>No. DoorMath is a calculator. The results depend entirely on the inputs you enter, and nothing in it is financial, investment, tax or legal advice. Check your numbers with qualified professionals before you make a decision.</p></div>
+      </details>
+      <details>
+        <summary>Does it handle taxes, depreciation or 1031 exchanges?</summary>
+        <div class="answer"><p>No. Income taxes, depreciation, capital-gains tax and 1031 exchanges are not modeled. Cash flow, IRR and profit figures are before tax.</p></div>
+      </details>
+      <details>
+        <summary>Can I change the formulas?</summary>
+        <div class="answer"><p>Yes. Formula cells are locked with sheet protection so you don't overwrite them by accident, but there's no password. Unprotect the sheet (in Excel: <em>Review › Unprotect Sheet</em>) and edit whatever you like.</p></div>
+      </details>
+      <details>
+        <summary>Where do I ask a question after buying?</summary>
+        <div class="answer"><p>Reply to your order confirmation email and include the version number (1.0.0).</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final on-dark" aria-labelledby="final-title">
+  <div class="wrap">
+    <h2 id="final-title">Run your next deal four ways before you make an offer.</h2>
+    <p class="lead">Long-term rental, BRRRR, fix &amp; flip and Airbnb, plus the max offer that meets your targets and the IRR if you sell in any year.</p>
+    <div class="price-line"><b>$29</b><span>one-time</span></div>
+    <a class="btn btn-yellow btn-lg" href="https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer" rel="noopener" data-buy>Buy DoorMath — $29</a>
+    <ul class="trust" aria-label="Purchase details">
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>One-time $29</li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>Instant download</li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>Excel, Google Sheets, LibreOffice</li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>No macros</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="#top" aria-label="DoorMath, back to top">
+          <svg aria-hidden="true"><use href="#i-logo"/></svg>
+          <span>Door<span class="accent">Math</span></span>
+        </a>
+        <p class="disclaimer">DoorMath — Rental Property Deal Analyzer, v1.0.0. An analysis tool for real-estate investors. Results depend entirely on your inputs. Nothing here or in the workbook is financial, investment, tax or legal advice. Income taxes, depreciation, capital-gains tax and 1031 exchanges are not modeled.</p>
+        <p class="disclaimer">Microsoft Excel, Google Sheets, LibreOffice, Apple Numbers, Airbnb and VRBO are trademarks of their respective owners. DoorMath is independent and not affiliated with them.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer" rel="noopener" data-buy>Buy DoorMath ($29)</a></li>
+          <li><a href="#calculator">Free calculator</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#included">What's included</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="https://github.com/liukai1949701-ux/claudef" rel="noopener">Site source on GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="copyright">
+      <span>© 2026 DoorMath. All rights reserved.</span>
+      <span>Sold through Shopify as a digital download.</span>
+    </div>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Enlarged screenshot">
+  <div class="lb-inner">
+    <button type="button" class="lb-close" id="lb-close" aria-label="Close enlarged screenshot"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+    <figure id="lb-figure">
+      <figcaption id="lb-caption"></figcaption>
+    </figure>
+  </div>
+</dialog>
+
+</body>
+</html>
