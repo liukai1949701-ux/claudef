@@ -2,6 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>{{SITE_URL}}/</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-27</lastmod>
+  </url>
+  <url>
+    <loc>{{SITE_URL}}/examples/max-offer-rental-property.html</loc>
+    <lastmod>2026-09-27</lastmod>
+  </url>
+  <url>
+    <loc>{{SITE_URL}}/examples/brrrr-worked-example.html</loc>
+    <lastmod>2026-09-27</lastmod>
+  </url>
+  <url>
+    <loc>{{SITE_URL}}/examples/airbnb-vs-long-term-rental.html</loc>
+    <lastmod>2026-09-27</lastmod>
+  </url>
+  <url>
+    <loc>{{SITE_URL}}/examples/cash-on-cash-vs-cap-rate-vs-dscr.html</loc>
+    <lastmod>2026-09-27</lastmod>
   </url>
 </urlset>

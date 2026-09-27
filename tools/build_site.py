@@ -2,7 +2,7 @@
 """Build the deployable GitHub Pages copy of the storefront into ./_site.
 
 Copies the site, substitutes the placeholder tokens, and leaves out development-only
-files (tests, full-size source screenshots). Usage:
+files (tests, tools, CI workflows, full-size source screenshots). Usage:
     python3 tools/build_site.py --site-url https://USER.github.io/REPO --repo-url https://github.com/USER/REPO \
         --test-workbooks 271 --test-checks 238,564
 """
@@ -11,7 +11,7 @@ import os
 import shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SKIP_DIRS = {"tests", "tools", "_site", ".git", os.path.join("assets", "shots")}
+SKIP_DIRS = {"tests", "tools", "_site", ".git", ".github", os.path.join("assets", "shots")}
 SKIP_FILES = {".gitignore", "README.md"}
 TEXT_EXT = (".html", ".xml", ".txt", ".js", ".css", ".json", ".webmanifest")
 

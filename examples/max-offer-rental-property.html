@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Calculate Your Max Offer on a Rental Property (Worked Example) | DoorMath</title>
+<meta name="description" content="Work backwards from your targets: the highest price a rental can cost and still make $150 a month per door, an 8% cash-on-cash return, a 6% cap rate and a 1.25 DSCR. Every formula and number shown.">
+<link rel="canonical" href="{{SITE_URL}}/examples/max-offer-rental-property.html">
+<meta name="theme-color" content="#1F2A44">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DoorMath">
+<meta property="og:title" content="How to calculate your max offer on a rental property">
+<meta property="og:description" content="Work backwards from your targets: the highest price a rental can cost and still make $150 a month per door, an 8% cash-on-cash return, a 6% cap rate and a 1.25 DSCR. Every formula and number shown.">
+<meta property="og:url" content="{{SITE_URL}}/examples/max-offer-rental-property.html">
+<meta property="og:image" content="{{SITE_URL}}/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DoorMath rental property calculator and worked examples.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to calculate your max offer on a rental property">
+<meta name="twitter:description" content="Work backwards from your targets: the highest price a rental can cost and still make $150 a month per door, an 8% cash-on-cash return, a 6% cap rate and a 1.25 DSCR. Every formula and number shown.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/og.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to calculate your max offer on a rental property",
+  "description": "Work backwards from your targets: the highest price a rental can cost and still make $150 a month per door, an 8% cash-on-cash return, a 6% cap rate and a 1.25 DSCR. Every formula and number shown.",
+  "datePublished": "2026-09-27",
+  "dateModified": "2026-09-27",
+  "author": {
+    "@type": "Organization",
+    "name": "DoorMath"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DoorMath"
+  },
+  "mainEntityOfPage": "{{SITE_URL}}/examples/max-offer-rental-property.html",
+  "image": "{{SITE_URL}}/assets/og.png"
+}
+</script>
+
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="14" fill="#1F2A44"/>
+    <path d="M19 55V15.5A3.5 3.5 0 0 1 22.5 12h19a3.5 3.5 0 0 1 3.5 3.5V55z" fill="#FFF4CC"/>
+    <path d="M32 12v43M19 27h26M19 41h26" stroke="#1F2A44" stroke-width="2.4" opacity=".28"/>
+    <circle cx="39.5" cy="34" r="2.8" fill="#0F766E"/>
+    <path d="M11 55h42" stroke="#14B8A6" stroke-width="3.2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../" aria-label="DoorMath home">
+      <svg aria-hidden="true"><use href="#i-logo"/></svg>
+      <span>Door<span class="accent">Math</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="../#calculator">Calculator</a></li>
+        <li><a href="../#examples">Worked examples</a></li>
+        <li><a href="../#workbook">Full workbook</a></li>
+        <li><a href="../#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-secondary btn-sm header-cta" href="../#calculator">Free calculator</a>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <header class="article-head">
+    <p class="crumbs"><a href="../">Home</a> › <a href="../#examples">Worked examples</a></p>
+    <p class="eyebrow">Worked example · Max offer</p>
+    <h1>How to calculate your max offer on a rental property</h1>
+    <p class="lead">Instead of asking whether a listing works at the asking price, work backwards: choose the returns you need and solve for the highest price that still delivers them. Here is the method on one example duplex, with every formula and number shown.</p>
+    <p class="byline">DoorMath · Published September 27, 2026 · All figures are for a made-up example property, not a real listing or market data.</p>
+  </header>
+
+  <article class="article">
+    <h2 id="deal">The example deal</h2>
+    <p>A duplex listed at $239,000. Both units together rent for $2,500 a month, plus $60 of other income. The buyer puts 25% down on a 30-year loan at 7.00%, pays 3% closing costs and spends $18,000 on repairs at purchase.</p>
+    <div class="table-wrap">
+      <table class="data inputs">
+        <caption>Inputs</caption>
+        <tbody>
+          <tr><td>Units</td><td>2</td></tr>
+          <tr><td>Asking price</td><td>$239,000</td></tr>
+          <tr><td>Rent (both units) + other income</td><td>$2,500 + $60 a month</td></tr>
+          <tr><td>Property taxes · insurance</td><td>$3,300 · $1,450 a year</td></tr>
+          <tr><td>Utilities &amp; other owner-paid costs</td><td>$200 a month</td></tr>
+          <tr><td>Vacancy · maintenance · CapEx reserve</td><td>6% · 5% · 5% of gross income</td></tr>
+          <tr><td>Property management</td><td>8% of collected income</td></tr>
+          <tr><td>Loan</td><td>25% down, 7.00%, 30 years, no points</td></tr>
+          <tr><td>Closing costs · up-front repairs</td><td>3% of the price · $18,000 in cash</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The buyer's targets are at least <strong>$150 a month of cash flow per door</strong>, an <strong>8% cash-on-cash return</strong>, a <strong>6% cap rate</strong> and a <strong>DSCR of 1.25</strong>.</p>
+    <p>At the asking price the duplex makes $169 a month ($85 per door), a 2.4% cash-on-cash return, a 6.8% cap rate and a DSCR of 1.14. Only the cap-rate target passes. So what price would pass all four?</p>
+
+    <h2 id="step-1">Step 1: work out NOI, which doesn't depend on the price</h2>
+    <p>Net operating income (NOI) is what the property earns before the mortgage. In this budget none of the lines depends on the price, so NOI stays fixed while we search for the price.</p>
+    <div class="table-wrap">
+      <table class="data">
+        <caption>Monthly NOI</caption>
+        <tbody>
+          <tr><th scope="row">Rent + other income</th><td>$2,560.00</td></tr>
+          <tr><th scope="row">Vacancy (6% of gross)</th><td class="neg">−$153.60</td></tr>
+          <tr class="sub"><th scope="row">Collected income</th><td>$2,406.40</td></tr>
+          <tr><th scope="row">Management (8% of collected)</th><td class="neg">−$192.51</td></tr>
+          <tr><th scope="row">Maintenance (5% of gross)</th><td class="neg">−$128.00</td></tr>
+          <tr><th scope="row">CapEx reserve (5% of gross)</th><td class="neg">−$128.00</td></tr>
+          <tr><th scope="row">Property taxes ($3,300 ÷ 12)</th><td class="neg">−$275.00</td></tr>
+          <tr><th scope="row">Insurance ($1,450 ÷ 12)</th><td class="neg">−$120.83</td></tr>
+          <tr><th scope="row">Utilities &amp; other</th><td class="neg">−$200.00</td></tr>
+          <tr class="total"><th scope="row">NOI</th><td>$1,362.05</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>That is $16,344.66 a year.</p>
+    <p class="note"><svg aria-hidden="true"><use href="#i-info"/></svg><span>Property taxes are held at $3,300 a year. If your county reassesses at the purchase price, a lower price also lowers the taxes, so your true max offer is a little higher.</span></p>
+
+    <h2 id="step-2">Step 2: turn the loan into a cost per dollar of price</h2>
+    <p>The monthly payment on a fixed-rate loan is the loan amount times a payment factor <em>k</em>:</p>
+<pre class="formula">k = i ÷ (1 − (1 + i)^−n)      i = 7.00% ÷ 12,  n = 360 payments
+k = 0.0066530</pre>
+    <p>The loan is 75% of the price, so each dollar of price adds 0.75 × 0.0066530 = <strong>0.0049898</strong> to the monthly payment, about $4.99 a month for every $1,000 of price. The cash you put in is 28% of the price (25% down plus 3% closing costs) plus the $18,000 of repairs.</p>
+
+    <h2 id="step-3">Step 3: solve each target for the price</h2>
+    <p>Each metric is a simple function of the price P, so each target turns into a maximum price. With NOI = $1,362.05 a month:</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th scope="col">Target</th><th scope="col">Solve for the price</th><th scope="col">Max price</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Cash flow ≥ $150 per door</th><td><code>(NOI − 2 × $150) ÷ 0.0049898</code></td><td>$212,846</td></tr>
+          <tr class="hl"><th scope="row">Cash-on-cash ≥ 8%</th><td><code>(12 × NOI − 8% × $18,000) ÷ (12 × 0.0049898 + 8% × 28%)</code></td><td>$181,152</td></tr>
+          <tr><th scope="row">Cap rate ≥ 6%</th><td><code>12 × NOI ÷ 6%</code></td><td>$272,411</td></tr>
+          <tr><th scope="row">DSCR ≥ 1.25</th><td><code>NOI ÷ (1.25 × 0.0049898)</code></td><td>$218,376</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Cash-on-cash is the only line that needs a little algebra, because the price is on both sides: a lower price lowers the payment <em>and</em> the cash you put in.</p>
+<pre class="formula">annual cash flow ÷ cash invested  ≥  8%
+12 × (NOI − 0.0049898 × P)  ≥  8% × (0.28 × P + $18,000)
+$16,344.66 − 0.0598772 × P  ≥  0.0224 × P + $1,440
+P  ≤  $14,904.66 ÷ 0.0822772  =  $181,152</pre>
+    <div class="takeaway">
+      <p><strong>Max offer: $181,152.</strong> It is the lowest of the four prices, so it is the only one that meets every target. Here the cash-on-cash target is the one that binds. That is $57,848 (24%) below the asking price.</p>
+    </div>
+
+    <h2 id="step-4">Step 4: check the deal at that price</h2>
+    <p>At $181,152 the loan is $135,864 and the payment is $903.90 a month. Everything else is unchanged.</p>
+    <ul class="key-results">
+      <li><b>$458</b><span>cash flow a month ($229 per door)</span></li>
+      <li class="win"><b>8.0%</b><span>cash-on-cash (target 8%)</span></li>
+      <li><b>9.0%</b><span>cap rate (target 6%)</span></li>
+      <li><b>1.51</b><span>DSCR (target 1.25)</span></li>
+      <li><b>$68,722</b><span>cash invested</span></li>
+    </ul>
+    <p>At each of the other three prices, that target's own metric lands exactly on target: $150.00 per door at $212,846, a 6.00% cap rate at $272,411 and a DSCR of 1.25 at $218,376. All three prices are still too high for the 8% cash-on-cash target.</p>
+
+    <h2 id="what-moves">What moves the max offer</h2>
+    <p>Changing one input at a time, starting from the $181,152 result:</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th scope="col">Change</th><th scope="col">Max offer</th><th scope="col">Difference</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Interest rate 6.00% instead of 7.00%</th><td>$195,190</td><td>+$14,039</td></tr>
+          <tr><th scope="row">Rent $2,700 instead of $2,500</th><td>$203,461</td><td>+$22,309</td></tr>
+          <tr><th scope="row">Self-managed (0% management instead of 8%)</th><td>$209,229</td><td>+$28,078</td></tr>
+          <tr><th scope="row">30% down instead of 25%</th><td>$181,134</td><td>−$18</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>A bigger down payment barely moves an offer that cash-on-cash is limiting: each extra dollar down lowers the payment, but it also adds a dollar to the cash invested. Rent, management and the interest rate move it far more.</p>
+
+    <h2 id="rules-of-thumb">Where the 1% rule and the 70% rule fit</h2>
+    <p><strong>The 1% rule</strong> says monthly rent should be at least 1% of the price plus repairs. Solved for the price: $2,500 × 100 − $18,000 = $232,000. It is a quick screen, not a target: here it would let you pay $50,848 more than the 8% cash-on-cash target allows.</p>
+    <p><strong>The 70% rule</strong> is for flips: pay at most 70% of the after-repair value, minus repairs. With an after-repair value of $285,000 that is $181,500, close to $181,152 only by coincidence. It answers a different question (flip profit), so don't use it to price a rental.</p>
+
+    <h2 id="limits">What this leaves out</h2>
+    <ul class="bullets">
+      <li>Income taxes and depreciation. All figures are before tax.</li>
+      <li>Appreciation and loan paydown. They add to your total return but not to monthly cash flow.</li>
+      <li>Costs that change with the price. Taxes and insurance are held fixed here (see the note in step 1).</li>
+    </ul>
+
+    <aside class="try-it" aria-labelledby="try-title">
+      <h2 id="try-title">Run the numbers on your own deal</h2>
+      <p>The free calculator on the DoorMath home page gives cash flow, cash-on-cash return, cap rate, DSCR and the 1% rule for any long-term rental. It runs in your browser and nothing you type is sent anywhere.</p>
+      <p class="cta-row"><a class="btn btn-primary" href="../#calculator">Open the free calculator</a> <a class="small-link" href="../#workbook">About the full DoorMath workbook</a></p>
+    </aside>
+
+    <h2 id="more-title">More worked examples</h2>
+    <ul class="more-examples" aria-labelledby="more-title">
+        <li><a href="brrrr-worked-example.html">BRRRR worked example: do you get all your cash back?<span>Two deals through the same refinance, and the two tests that decide the outcome.</span></a></li>
+        <li><a href="airbnb-vs-long-term-rental.html">Airbnb vs. long-term rental: the management fee decides<span>One duplex both ways, month by month, with break-even occupancy.</span></a></li>
+        <li><a href="cash-on-cash-vs-cap-rate-vs-dscr.html">Cash-on-cash vs. cap rate vs. DSCR: one duplex, three answers<span>What each metric measures, negative leverage, and the rent a 1.25 DSCR needs.</span></a></li>
+    </ul>
+  </article>
+</div>
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="../" aria-label="DoorMath home">
+          <svg aria-hidden="true"><use href="#i-logo"/></svg>
+          <span>Door<span class="accent">Math</span></span>
+        </a>
+        <p class="disclaimer">Educational examples for real-estate investors. Results depend entirely on the inputs. Nothing here is financial, investment, tax or legal advice. Income taxes, depreciation, capital-gains tax and 1031 exchanges are not modeled.</p>
+        <p class="disclaimer">Airbnb and VRBO are trademarks of their respective owners. DoorMath is independent and not affiliated with them.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="../#calculator">Free calculator</a></li>
+          <li><a href="../#examples">Worked examples</a></li>
+          <li><a href="../#workbook">Full workbook</a></li>
+          <li><a href="../#faq">FAQ</a></li>
+          <li><a href="{{REPO_URL}}" rel="noopener">Site source on GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="copyright">
+      <span>© 2026 DoorMath. All rights reserved.</span>
+      <span>The calculator and examples are free. The workbook is sold separately through the DoorMath store.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

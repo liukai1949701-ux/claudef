@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cash-on-Cash vs. Cap Rate vs. DSCR: One Duplex, Three Answers | DoorMath</title>
+<meta name="description" content="Why a 6.84% cap rate can come with a 2.40% cash-on-cash return: what each rental metric measures, what moves it, negative leverage, and the rent a 1.25 DSCR needs.">
+<link rel="canonical" href="{{SITE_URL}}/examples/cash-on-cash-vs-cap-rate-vs-dscr.html">
+<meta name="theme-color" content="#1F2A44">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DoorMath">
+<meta property="og:title" content="Cash-on-cash vs. cap rate vs. DSCR: one duplex, three answers">
+<meta property="og:description" content="Why a 6.84% cap rate can come with a 2.40% cash-on-cash return: what each rental metric measures, what moves it, negative leverage, and the rent a 1.25 DSCR needs.">
+<meta property="og:url" content="{{SITE_URL}}/examples/cash-on-cash-vs-cap-rate-vs-dscr.html">
+<meta property="og:image" content="{{SITE_URL}}/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DoorMath rental property calculator and worked examples.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cash-on-cash vs. cap rate vs. DSCR: one duplex, three answers">
+<meta name="twitter:description" content="Why a 6.84% cap rate can come with a 2.40% cash-on-cash return: what each rental metric measures, what moves it, negative leverage, and the rent a 1.25 DSCR needs.">
+<meta name="twitter:image" content="{{SITE_URL}}/assets/og.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cash-on-cash vs. cap rate vs. DSCR: one duplex, three answers",
+  "description": "Why a 6.84% cap rate can come with a 2.40% cash-on-cash return: what each rental metric measures, what moves it, negative leverage, and the rent a 1.25 DSCR needs.",
+  "datePublished": "2026-09-27",
+  "dateModified": "2026-09-27",
+  "author": {
+    "@type": "Organization",
+    "name": "DoorMath"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DoorMath"
+  },
+  "mainEntityOfPage": "{{SITE_URL}}/examples/cash-on-cash-vs-cap-rate-vs-dscr.html",
+  "image": "{{SITE_URL}}/assets/og.png"
+}
+</script>
+
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="14" fill="#1F2A44"/>
+    <path d="M19 55V15.5A3.5 3.5 0 0 1 22.5 12h19a3.5 3.5 0 0 1 3.5 3.5V55z" fill="#FFF4CC"/>
+    <path d="M32 12v43M19 27h26M19 41h26" stroke="#1F2A44" stroke-width="2.4" opacity=".28"/>
+    <circle cx="39.5" cy="34" r="2.8" fill="#0F766E"/>
+    <path d="M11 55h42" stroke="#14B8A6" stroke-width="3.2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../" aria-label="DoorMath home">
+      <svg aria-hidden="true"><use href="#i-logo"/></svg>
+      <span>Door<span class="accent">Math</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="../#calculator">Calculator</a></li>
+        <li><a href="../#examples">Worked examples</a></li>
+        <li><a href="../#workbook">Full workbook</a></li>
+        <li><a href="../#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-secondary btn-sm header-cta" href="../#calculator">Free calculator</a>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <header class="article-head">
+    <p class="crumbs"><a href="../">Home</a> › <a href="../#examples">Worked examples</a></p>
+    <p class="eyebrow">Worked example · Rental metrics</p>
+    <h1>Cash-on-cash vs. cap rate vs. DSCR: one duplex, three answers</h1>
+    <p class="lead">Cap rate, cash-on-cash return and DSCR all describe the same rental, yet for this example duplex they read 6.84%, 2.40% and 1.14. They disagree because they answer different questions. Here is what each one measures and when to use it.</p>
+    <p class="byline">DoorMath · Published September 27, 2026 · All figures are for a made-up example property, not a real listing or market data.</p>
+  </header>
+
+  <article class="article">
+    <h2 id="three">Three metrics, three questions</h2>
+    <p>For the example duplex: $239,000, 25% down on a 30-year loan at 7.00%, NOI of $16,345 a year and loan payments of $14,311 a year.</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th scope="col">Metric</th><th scope="col">Formula</th><th scope="col">This duplex</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Cap rate</th><td>NOI ÷ price</td><td>$16,345 ÷ $239,000 = <strong>6.84%</strong></td></tr>
+          <tr><th scope="row">Cash-on-cash return</th><td>cash flow ÷ cash invested</td><td>$2,034 ÷ $84,920 = <strong>2.40%</strong></td></tr>
+          <tr><th scope="row">DSCR</th><td>NOI ÷ loan payments</td><td>$16,345 ÷ $14,311 = <strong>1.14</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="bullets">
+      <li><strong>Cap rate</strong> asks what the property earns on its price before any loan. Because it ignores financing, it's the one to compare across properties and against sale prices in the area.</li>
+      <li><strong>Cash-on-cash return</strong> asks what your cash earns in the first year. The cash invested here is the down payment, closing costs and up-front repairs. It ignores loan paydown and appreciation.</li>
+      <li><strong>DSCR</strong> (debt service coverage ratio) asks whether NOI covers the loan payments, and by how much. It is what lenders check, and each lender sets its own minimum. Below 1.00, NOI doesn't cover the payments.</li>
+    </ul>
+
+    <h2 id="what-moves">What moves each metric</h2>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th scope="col">Scenario</th><th scope="col">Cap rate</th><th scope="col">Cash-on-cash</th><th scope="col">DSCR</th><th scope="col">Cash flow a month</th><th scope="col">Cash invested</th></tr></thead>
+        <tbody>
+          <tr class="hl"><th scope="row">As listed</th><td>6.84%</td><td>2.40%</td><td>1.14</td><td>$169</td><td>$84,920</td></tr>
+          <tr><th scope="row">All cash, no loan</th><td>6.84%</td><td>6.19%</td><td>no loan</td><td>$1,362</td><td>$264,170</td></tr>
+          <tr><th scope="row">Interest rate 6.00%</th><td>6.84%</td><td>4.06%</td><td>1.27</td><td>$287</td><td>$84,920</td></tr>
+          <tr><th scope="row">Price $181,152</th><td>9.02%</td><td>8.00%</td><td>1.51</td><td>$458</td><td>$68,722</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The cap rate moves only with the price or NOI. Financing changes cash-on-cash and DSCR but never the cap rate. $181,152 is the price that makes this duplex hit an 8% cash-on-cash return; <a href="max-offer-rental-property.html">the max-offer example</a> shows how to solve for it.</p>
+
+    <h2 id="leverage">Why a 6.84% cap rate can mean a 2.40% return</h2>
+    <p>Bought with cash, the duplex returns 6.19% on its $264,170 all-in cost (price, closing costs and repairs). The loan changes that because of its <em>loan constant</em>, the yearly payment per dollar borrowed:</p>
+<pre class="formula">loan constant = 12 × monthly payment ÷ loan amount
+at 7.00% for 30 years: 12 × 0.0066530 = 7.98% a year</pre>
+    <p>Each borrowed dollar costs 7.98% a year in payments, but the property earns only 6.19% on it. So borrowing pulls the return down from 6.19% all cash to 2.40% with 75% financing. This is called negative leverage. At 6.00% the constant is 7.19%, still too high; for this deal a loan only starts to raise the cash-on-cash return below a rate of about 4.65%.</p>
+    <p class="note"><svg aria-hidden="true"><use href="#i-info"/></svg><span>Part of each loan payment is principal, which builds equity rather than disappearing. Cash-on-cash leaves that out, so it understates the total return of a financed purchase.</span></p>
+
+    <h2 id="rent-needed">The rent each target needs</h2>
+    <p>At the $239,000 asking price, with the same loan and expense budget, the rent for both units would need to be at least:</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th scope="col">Target</th><th scope="col">Rent a month</th><th scope="col">vs. $2,500 now</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Break even (cash flow $0)</th><td>$2,279</td><td>−$221</td></tr>
+          <tr><th scope="row">DSCR 1.25</th><td>$2,669</td><td>+$169</td></tr>
+          <tr><th scope="row">$150 a month of cash flow per door</th><td>$2,671</td><td>+$171</td></tr>
+          <tr><th scope="row">8% cash-on-cash return</th><td>$3,019</td><td>+$519</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>With this budget each extra dollar of rent adds about 76 cents of NOI: vacancy, management, maintenance and CapEx take the rest. The DSCR line, for example:</p>
+<pre class="formula">NOI needed = 1.25 × $1,192.55 = $1,490.69 a month
+NOI        = 0.7648 × (rent + $60) − $595.83 fixed costs
+rent       = ($1,490.69 + $595.83) ÷ 0.7648 − $60 = $2,668.20</pre>
+
+    <h2 id="which">Which one to use</h2>
+    <ul class="bullets">
+      <li><strong>Screening listings, or checking a price against local sales:</strong> cap rate.</li>
+      <li><strong>Deciding whether your cash is better here than elsewhere:</strong> cash-on-cash, plus loan paydown and appreciation for the full picture.</li>
+      <li><strong>Getting a loan, or stress-testing a vacancy or a rate rise:</strong> DSCR.</li>
+      <li><strong>Making an offer:</strong> all of them at once. Solve each target for a price and offer the lowest, as in <a href="max-offer-rental-property.html">the max-offer example</a>.</li>
+    </ul>
+
+    <aside class="try-it" aria-labelledby="try-title">
+      <h2 id="try-title">Run the numbers on your own deal</h2>
+      <p>The free calculator on the DoorMath home page gives cash flow, cash-on-cash return, cap rate, DSCR and the 1% rule for any long-term rental. It runs in your browser and nothing you type is sent anywhere.</p>
+      <p class="cta-row"><a class="btn btn-primary" href="../#calculator">Open the free calculator</a> <a class="small-link" href="../#workbook">About the full DoorMath workbook</a></p>
+    </aside>
+
+    <h2 id="more-title">More worked examples</h2>
+    <ul class="more-examples" aria-labelledby="more-title">
+        <li><a href="max-offer-rental-property.html">How to calculate your max offer on a rental property<span>Solve for the highest price that still meets your cash flow, cash-on-cash, cap rate and DSCR targets.</span></a></li>
+        <li><a href="brrrr-worked-example.html">BRRRR worked example: do you get all your cash back?<span>Two deals through the same refinance, and the two tests that decide the outcome.</span></a></li>
+        <li><a href="airbnb-vs-long-term-rental.html">Airbnb vs. long-term rental: the management fee decides<span>One duplex both ways, month by month, with break-even occupancy.</span></a></li>
+    </ul>
+  </article>
+</div>
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="../" aria-label="DoorMath home">
+          <svg aria-hidden="true"><use href="#i-logo"/></svg>
+          <span>Door<span class="accent">Math</span></span>
+        </a>
+        <p class="disclaimer">Educational examples for real-estate investors. Results depend entirely on the inputs. Nothing here is financial, investment, tax or legal advice. Income taxes, depreciation, capital-gains tax and 1031 exchanges are not modeled.</p>
+        <p class="disclaimer">Airbnb and VRBO are trademarks of their respective owners. DoorMath is independent and not affiliated with them.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="../#calculator">Free calculator</a></li>
+          <li><a href="../#examples">Worked examples</a></li>
+          <li><a href="../#workbook">Full workbook</a></li>
+          <li><a href="../#faq">FAQ</a></li>
+          <li><a href="{{REPO_URL}}" rel="noopener">Site source on GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="copyright">
+      <span>© 2026 DoorMath. All rights reserved.</span>
+      <span>The calculator and examples are free. The workbook is sold separately through the DoorMath store.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

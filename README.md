@@ -4,19 +4,23 @@
 
 DoorMath is a spreadsheet (Excel, Google Sheets, LibreOffice) that runs a property as a long-term rental, a BRRRR, a fix & flip and an Airbnb / short-term rental. It adds a 30-year projection with the IRR if you sell in any year, sensitivity grids, a five-deal comparison, and a max-offer solver that finds the highest price that still meets your targets.
 
-- **Storefront & free calculator:** https://liukai1949701-ux.github.io/claudef/
-- **Buy the workbook ($29, one-time):** https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer
+- **Free calculator & worked examples:** https://liukai1949701-ux.github.io/claudef/
+- **The workbook ($29, one-time) in the DoorMath store:** https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer (the store is not taking orders yet)
 
 ![DoorMath Summary tab](assets/shots/summary.png)
 
 ## What's in this repository
 
-This repository holds the **public storefront**, published with GitHub Pages:
+This repository holds the **free DoorMath site**, published with GitHub Pages. It is an educational tool, not a shop: the workbook is sold and delivered by the DoorMath store, and the site links there once.
 
-- `index.html`, `404.html`, `assets/`: the landing page, screenshots and product images.
-- `assets/calc-core.js`: the free long-term-rental calculator. Its math matches the workbook's Rental tab and is tested against 83 cases from the workbook's reference model (`tests/calc.test.mjs`).
-- `tests/site_check.py`: a browser check with Playwright. It covers console errors, mobile layout, the calculator, the lightbox and the Buy links.
-- `.github/verify_live.py` (on the `gh-pages` branch): a GitHub Actions check of the live site. It checks every page, asset and link, confirms the Buy URL, confirms the paid files can't be reached, and scans the full git history for them.
+- `index.html`: the free long-term-rental calculator, the worked examples, a short section about the workbook, and the FAQ.
+- `examples/`: four worked examples with every formula and number shown: max offer, BRRRR refinance, Airbnb vs. long-term rental, and cash-on-cash vs. cap rate vs. DSCR. Their figures come from the same reference model the workbook is tested against.
+- `404.html`, `assets/`: the error page, styles, scripts, screenshots and product images.
+- `assets/calc-core.js`: the calculator math. It matches the workbook's Rental tab and is tested against 83 cases from the workbook's reference model (`tests/calc.test.mjs`).
+- `tests/site_check.py`: a Playwright browser check of the home page and every example page. It covers console errors, failed and external requests, layouts from 320px to 1440px, the calculator, the lightbox, internal links and anchors, and the store links (product URL with UTM tags).
+- `.github/verify_live.py` (on the `gh-pages` branch): a GitHub Actions check of the live site. It checks every page, asset and link, confirms the store URL, confirms the paid files can't be reached, and scans the full git history for them.
+
+Store links carry `utm_source=doormath-free-site`, `utm_medium=referral` and a per-link `utm_campaign`, so the store's analytics can attribute visits and sales to this site.
 
 The paid workbook is **not** in this repository. It is delivered as a download after purchase.
 

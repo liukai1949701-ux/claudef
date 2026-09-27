@@ -4,8 +4,8 @@
 Run: python3 tests/site_check.py
 Serves the site folder with `python3 -m http.server` on a free localhost port and uses
 Playwright's Chromium to check desktop (1280px) and mobile (375px) layouts, console
-errors, failed/external requests, horizontal overflow, the calculator, the lightbox and
-every Buy link. Saves full-page screenshots to tests/out/.
+errors, failed/external requests, horizontal overflow, the calculator, the lightbox,
+every store link and the worked-example pages. Saves full-page screenshots to tests/out/.
 
 Set CHROMIUM_PATH to use a specific Chromium binary; otherwise Playwright's own
 bundled Chromium is used.
@@ -16,6 +16,8 @@ import socket
 import subprocess
 import sys
 import time
+import json
+import urllib.parse
 import urllib.request
 
 from playwright.sync_api import sync_playwright
@@ -24,6 +26,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "tests", "out")
 CHROME = os.environ.get("CHROMIUM_PATH") or None   # None = Playwright's bundled Chromium
 BUY_URL = "https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer"
+UTM = {"utm_source": "doormath-free-site", "utm_medium": "referral"}   # + a per-link utm_campaign
+EXAMPLES = {   # page -> a figure that must appear on it
+    "examples/max-offer-rental-property.html": "$181,152",
+    "examples/brrrr-worked-example.html": "$69,704",
+    "examples/airbnb-vs-long-term-rental.html": "65.7%",
+    "examples/cash-on-cash-vs-cap-rate-vs-dscr.html": "6.84%",
+}
 
 EXAMPLE_UI = {
     "units": 2, "price": 239000, "closing_pct": 3, "repairs": 18000, "down_pct": 25,
@@ -64,6 +73,17 @@ def py_cash_flow(ui):
     else:
         pi = loan * i / (1 - (1 + i) ** -n)
     return noi - pi
+
+
+def store_link_problem(href):
+    """None if href is the product URL tagged with our UTM parameters, else what is wrong."""
+    u = urllib.parse.urlsplit(href)
+    if f"{u.scheme}://{u.netloc}{u.path}" != BUY_URL:
+        return "not the product URL"
+    q = dict(urllib.parse.parse_qsl(u.query))
+    if any(q.get(k) != v for k, v in UTM.items()) or not q.get("utm_campaign"):
+        return "missing utm_source/utm_medium/utm_campaign"
+    return None
 
 
 def money(v):
@@ -159,15 +179,17 @@ def run_viewport(browser, base, name, width, height, mobile):
     }).map(i => i.currentSrc)""")
     check(not bad_dims, "img width/height match the real image aspect ratio" + (f" (bad: {bad_dims})" if bad_dims else ""))
 
-    # example-deal story (post-review numbers): STR barely breaks even, long-term has higher cash flow
+    # free-tool-first home page: the calculator is the page's h1 and first section
     text = page.evaluate("document.body.innerText")
-    alts = page.evaluate("[...document.images].map(i => i.alt).join(' ')")
-    stale = [t for t in ("10,654", "10.6%", "$888", "24,965", "10.4%", "5–50%", "5% to 50%", "exact formula", "modelled", "modelling")
-             if t in text or t in alts]
-    check(not stale, "no stale example numbers or wording" + (f" (found: {stale})" if stale else ""))
-    airbnb = page.locator("#airbnb").inner_text()
-    check(all(t in airbnb for t in ("$249", "0.2%", "65.7%", "66.3%", "$2,034", "2.4%", "$100,920")),
-          "Airbnb section shows the post-review STR numbers")
+    stale = [t for t in ("5–50%", "5% to 50%", "exact formula", "modelled", "modelling", "Buy now", "Get the full")
+             if t in text]
+    check(not stale, "no stale wording" + (f" (found: {stale})" if stale else ""))
+    first = page.evaluate("document.querySelector('main > section').id")
+    h1_text = page.locator("#calculator h1").inner_text()
+    check(first == "calculator" and "calculator" in h1_text.lower(),
+          f"calculator is the first section and holds the h1 ({first}: {h1_text!r})")
+    cards = page.evaluate("[...document.querySelectorAll('#examples a.example-card')].map(a => a.getAttribute('href'))")
+    check(sorted(cards) == sorted(EXAMPLES), f"home page links to the {len(EXAMPLES)} worked examples ({len(cards)} cards)")
 
     h1 = page.locator("h1").count()
     check(h1 == 1, f"exactly one h1 (found {h1})")
@@ -177,12 +199,15 @@ def run_viewport(browser, base, name, width, height, mobile):
     page.screenshot(path=shot, full_page=True)
     print(f"  saved {os.path.relpath(shot, ROOT)}")
 
-    # ---- Buy links ----
+    # ---- store links: product URL + UTM tags, rel=noopener ----
     hrefs = page.evaluate("""[...document.querySelectorAll('a')]
         .filter(a => a.hasAttribute('data-buy') || /buy|get the full/i.test(a.textContent) || a.href.includes('myshopify'))
         .map(a => ({href: a.getAttribute('href'), rel: a.getAttribute('rel') || '', text: a.textContent.trim()}))""")
-    bad = [h for h in hrefs if h["href"] != BUY_URL or "noopener" not in h["rel"].split()]
-    check(len(hrefs) >= 5 and not bad, f"{len(hrefs)} Buy links all use the exact buy URL with rel=noopener" + (f" (bad: {bad})" if bad else ""))
+    bad = [h for h in hrefs if store_link_problem(h["href"]) or "noopener" not in h["rel"].split()]
+    check(len(hrefs) >= 2 and not bad, f"{len(hrefs)} store links use the product URL with UTM tags and rel=noopener"
+          + (f" (bad: {bad})" if bad else ""))
+    campaigns = [dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(h["href"]).query)).get("utm_campaign") for h in hrefs]
+    check(len(set(campaigns)) == len(campaigns), f"each store link has its own utm_campaign ({campaigns})")
     check(page.evaluate("document.body.dataset.buyUrl") == BUY_URL, "body[data-buy-url] matches the buy URL")
 
     # ---- Calculator ----
@@ -213,15 +238,15 @@ def run_viewport(browser, base, name, width, height, mobile):
                 return True
             except Exception:
                 return False
-        page.evaluate("window.scrollTo({top: 0, behavior: 'instant'})")
-        hidden_at_top = settles("!" + vis)
         page.evaluate("document.getElementById('f-taxes_yr').scrollIntoView({block: 'center', behavior: 'instant'})")
         shown_in_form = settles(vis)
         page.evaluate("document.getElementById('results').scrollIntoView({block: 'center', behavior: 'instant'})")
         hidden_at_results = settles("!" + vis)
-        check(hidden_at_top and shown_in_form and hidden_at_results,
+        page.evaluate("document.getElementById('faq').scrollIntoView({block: 'start', behavior: 'instant'})")
+        hidden_past_form = settles("!" + vis)
+        check(shown_in_form and hidden_at_results and hidden_past_form,
               f"mobile mini result bar shows only while the form is on screen and the results are not "
-              f"({hidden_at_top}/{shown_in_form}/{hidden_at_results})")
+              f"({shown_in_form}/{hidden_at_results}/{hidden_past_form})")
     page.locator("#f-down_pct").fill("100")
     check(page.locator("#out-dscr").inner_text() == "No debt", "all-cash purchase shows DSCR as 'No debt'")
     page.locator("#calc-reset").click()
@@ -259,13 +284,57 @@ def check_widths(browser, base):
     for w in (320, 360, 414, 768, 1024, 1440):
         ctx = browser.new_context(viewport={"width": w, "height": 900}, is_mobile=w < 700, has_touch=w < 700)
         page = ctx.new_page()
-        page.goto(base + "/index.html", wait_until="networkidle")
-        sw, iw = page.evaluate("[document.documentElement.scrollWidth, innerWidth]")
-        wide = page.evaluate(f"""[...document.querySelectorAll('body *')].filter(e => {{
-            const r = e.getBoundingClientRect(); return r.width > 0 && r.right > {w} + 1 && !e.closest('.sheet-tabs');
-        }}).slice(0, 5).map(e => e.tagName + '.' + (e.className.baseVal ?? e.className))""")
-        check(sw <= iw and iw == w, f"{w}px: no horizontal scroll (scrollWidth {sw}, innerWidth {iw})" + (f" {wide}" if wide else ""))
+        for path in ["index.html", *EXAMPLES]:
+            page.goto(f"{base}/{path}", wait_until="networkidle")
+            sw, iw = page.evaluate("[document.documentElement.scrollWidth, innerWidth]")
+            wide = page.evaluate(f"""[...document.querySelectorAll('body *')].filter(e => {{
+                const r = e.getBoundingClientRect(); return r.width > 0 && r.right > {w} + 1
+                    && !e.closest('.sheet-tabs, .table-wrap, .formula');
+            }}).slice(0, 5).map(e => e.tagName + '.' + (e.className.baseVal ?? e.className))""")
+            check(sw <= iw and iw == w, f"{w}px {path}: no horizontal scroll (scrollWidth {sw}, innerWidth {iw})"
+                  + (f" {wide}" if wide else ""))
         ctx.close()
+
+
+def check_examples(browser, base):
+    for path, figure in EXAMPLES.items():
+        for name, w, h, mobile in (("desktop", 1280, 800, False), ("mobile", 375, 812, True)):
+            print(f"\n[{path} {name} {w}px]")
+            ctx = browser.new_context(viewport={"width": w, "height": h}, is_mobile=mobile, has_touch=mobile)
+            page = ctx.new_page()
+            log = {"console": [], "failed": [], "external": []}
+            watch(page, base, log)
+            page.goto(f"{base}/{path}", wait_until="networkidle")
+            sw, iw = page.evaluate("[document.documentElement.scrollWidth, innerWidth]")
+            check(sw <= iw and iw == w, f"no horizontal scroll (scrollWidth {sw}, innerWidth {iw})")
+            check(page.locator("h1").count() == 1, "exactly one h1")
+            check(figure in page.evaluate("document.body.innerText"), f"shows the worked figure {figure}")
+            if not mobile:   # page-level checks once per page
+                ld = json.loads(page.locator('script[type="application/ld+json"]').text_content())
+                canon = page.locator('link[rel="canonical"]').get_attribute("href")
+                check(ld.get("@type") == "Article" and canon.endswith("/" + path), f"Article JSON-LD and canonical ({canon})")
+                links = page.evaluate("[...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href'))")
+                internal = [l for l in links if not l.startswith(("http:", "https:", "mailto:", "{{", "#"))]
+                broken = []
+                for l in sorted(set(internal)):
+                    url = urllib.parse.urljoin(f"{base}/{path}", l)
+                    target, frag = urllib.parse.urldefrag(url)
+                    try:
+                        body = urllib.request.urlopen(target, timeout=5).read().decode("utf-8", "replace")
+                    except Exception as e:
+                        broken.append(f"{l} ({e})")
+                        continue
+                    if frag and f'id="{frag}"' not in body:
+                        broken.append(f"{l} (no #{frag})")
+                check(not broken, f"{len(set(internal))} internal links resolve, anchors included" + (f" (broken: {broken})" if broken else ""))
+                store = [l for l in links if "myshopify" in l]
+                check(all(store_link_problem(l) is None for l in store), f"{len(store)} store links carry UTM tags")
+                os.makedirs(OUT, exist_ok=True)
+                page.screenshot(path=os.path.join(OUT, os.path.basename(path).replace(".html", ".png")), full_page=True)
+            check(not log["console"], "no console errors" + (f": {log['console']}" if log["console"] else ""))
+            check(not log["failed"], "no failed requests" + (f": {log['failed']}" if log["failed"] else ""))
+            check(not log["external"], "no external requests" + (f": {log['external']}" if log["external"] else ""))
+            ctx.close()
 
 
 def check_404(browser, base):
@@ -290,6 +359,7 @@ def main():
                 "--disable-background-networking", "--disable-component-update", "--no-first-run"])
             run_viewport(browser, base, "desktop", 1280, 800, False)
             run_viewport(browser, base, "mobile", 375, 812, True)
+            check_examples(browser, base)
             check_widths(browser, base)
             check_404(browser, base)
             browser.close()
