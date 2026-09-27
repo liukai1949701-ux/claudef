@@ -2,8 +2,8 @@
 """Verify the live DoorMath storefront on GitHub Pages.
 
 Checks: every deployed file is served; every link and image on every page resolves;
-Buy buttons point at the exact product URL; no paid deliverable is reachable or
-committed anywhere in the repository history; no placeholder tokens remain.
+store links point at the product URL with this site's UTM tags; no paid deliverable is
+reachable or committed anywhere in the repository history; no placeholder tokens remain.
 """
 import html.parser
 import os
@@ -18,6 +18,7 @@ BASE = os.environ["SITE_URL"].rstrip("/") + "/"
 BUY = os.environ["BUY_URL"]
 SITE_DIR = os.environ.get("SITE_DIR", "site")
 UA = {"User-Agent": "Mozilla/5.0 (DoorMath live check)"}
+UTM = {"utm_source": "doormath-free-site", "utm_medium": "referral"}   # + a per-link utm_campaign
 failures = []
 
 
@@ -100,17 +101,22 @@ for rel in [f for f in files if f.endswith(".html")]:
         base = url.split("#")[0]
         if "myshopify.com" in url:
             buys += 1
-            if url != BUY:
-                fail(f"{rel}: buy link {url} != {BUY}")
+            u = urllib.parse.urlsplit(url)
+            q = dict(urllib.parse.parse_qsl(u.query))
+            if f"{u.scheme}://{u.netloc}{u.path}" != BUY:
+                fail(f"{rel}: store link {url} is not {BUY}")
+            if any(q.get(k) != v for k, v in UTM.items()) or not q.get("utm_campaign"):
+                fail(f"{rel}: store link {url} lacks utm_source/utm_medium/utm_campaign")
+            base = BUY   # fetch without the UTM query so this check never counts as a tagged visit
         if any(base.lower().endswith(x) for x in (".xlsx", ".zip", ".xls")):
             fail(f"{rel}: links to a downloadable deliverable {base}")
         if base not in checked:
             checked[base] = get(base)[0]
         if checked[base] != 200:
             fail(f"{rel}: broken link {url} -> {checked[base]}")
-    print(f"{rel}: {len(p.links)} links, {buys} buy links")
+    print(f"{rel}: {len(p.links)} links, {buys} store links")
     if rel == "index.html" and buys < 2:
-        fail("index.html has fewer than 2 buy links")
+        fail("index.html has fewer than 2 store links")
 
 # 4. the product URL itself
 code, final, body = get(BUY)
