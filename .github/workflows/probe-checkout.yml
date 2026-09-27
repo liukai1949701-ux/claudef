@@ -1,6 +1,9 @@
 name: Probe checkout
 
 on:
+  push:
+    branches: [claude/amazing-cori-wah3rc]
+    paths: [".github/workflows/probe-checkout.yml"]
   workflow_dispatch:
     inputs:
       url:
@@ -12,6 +15,8 @@ permissions:
 
 jobs:
   probe:
+    # push only registers the workflow; the probe runs on manual dispatch with a URL
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
