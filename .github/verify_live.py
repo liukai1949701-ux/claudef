@@ -19,6 +19,9 @@ BUY = os.environ["BUY_URL"]
 SITE_DIR = os.environ.get("SITE_DIR", "site")
 UA = {"User-Agent": "Mozilla/5.0 (DoorMath live check)"}
 UTM = {"utm_source": "doormath-free-site", "utm_medium": "referral"}   # + a per-link utm_campaign
+# The product URL answers 200 (open store, or the /password page), or 503 when Shopify answers an
+# automated request to a password-protected store with "unavailable". 404 means the product is gone.
+STORE_OK = (200, 503)
 failures = []
 
 
@@ -69,20 +72,7 @@ def fresh(url):
     return url + ("&" if "?" in url else "?") + "v=" + REV
 
 
-# 1. wait until the Pages site serves this commit's index.html (a push starts the check
-#    before the Pages build has finished, and the old index also answers 200)
-local_index = open(os.path.join(SITE_DIR, "index.html"), "rb").read()
-for i in range(60):
-    code, _, body = get(fresh(BASE))
-    if code == 200 and body == local_index:
-        break
-    print(f"waiting for Pages to serve this commit (HTTP {code}, {'current' if body == local_index else 'older'} index)")
-    time.sleep(15)
-else:
-    fail("Pages did not serve this commit's index.html within 15 minutes")
-print("index:", code)
-
-# 2. every deployed file is served
+# 1. the deployed files, as committed
 files = []
 for root, dirs, fs in os.walk(SITE_DIR):
     dirs[:] = [d for d in dirs if not d.startswith(".") and d != "tests"]
@@ -91,13 +81,31 @@ for root, dirs, fs in os.walk(SITE_DIR):
             continue
         rel = os.path.relpath(os.path.join(root, f), SITE_DIR).replace(os.sep, "/")
         files.append(rel)
-for rel in sorted(files):
-    code, _, body = get(fresh(BASE + rel))
-    if code != 200:
-        fail(f"deployed file not served: {rel} -> {code}")
-    if rel.endswith((".html", ".xml", ".txt")) and b"{{" in body:
-        fail(f"placeholder token left in {rel}")
-print(f"{len(files)} deployed files checked")
+files.sort()
+
+# 2. wait until Pages serves this commit: every file answers 200 with the committed bytes.
+#    A push starts this check before the Pages build finishes, and the previous deployment
+#    also answers 200, so status codes alone can't tell the two apart.
+deadline = time.time() + 15 * 60
+while True:
+    stale = []
+    for rel in files:
+        code, _, body = get(fresh(BASE + rel))
+        with open(os.path.join(SITE_DIR, rel), "rb") as fh:
+            if code != 200 or body != fh.read():
+                stale.append(f"{rel} (HTTP {code})")
+    if not stale or time.time() > deadline:
+        break
+    print(f"waiting for Pages to serve this commit: {len(stale)} file(s) not current, e.g. {stale[:3]}")
+    time.sleep(20)
+for s_ in stale:
+    fail(f"deployed file not served as committed: {s_}")
+for rel in files:
+    if rel.endswith((".html", ".xml", ".txt")):
+        with open(os.path.join(SITE_DIR, rel), "rb") as fh:
+            if b"{{" in fh.read():
+                fail(f"placeholder token left in {rel}")
+print(f"{len(files)} deployed files served as committed")
 
 # 3. links on every page
 checked = {}
@@ -126,7 +134,8 @@ for rel in [f for f in files if f.endswith(".html")]:
             fail(f"{rel}: links to a downloadable deliverable {base}")
         if base not in checked:
             checked[base] = get(fresh(base))[0]
-        if checked[base] != 200:
+        ok = STORE_OK if base == BUY else (200,)
+        if checked[base] not in ok:
             fail(f"{rel}: broken link {url} -> {checked[base]}")
     print(f"{rel}: {len(p.links)} links, {buys} store links")
     if rel == "index.html" and buys < 2:
@@ -135,9 +144,9 @@ for rel in [f for f in files if f.endswith(".html")]:
 # 4. the product URL itself
 code, final, body = get(BUY)
 print(f"BUY URL {BUY} -> HTTP {code}, final URL {final}")
-if "/password" in final:
-    print("NOTE: the Shopify storefront is password-protected (store not yet open for sales).")
-if code not in (200,) and "/password" not in final:
+if "/password" in final or code == 503:
+    print("NOTE: the Shopify storefront is password-protected or unavailable (not open for sales yet).")
+if code not in STORE_OK:
     fail(f"buy URL not reachable: {code}")
 
 # 5. paid deliverable must not be reachable on the site
