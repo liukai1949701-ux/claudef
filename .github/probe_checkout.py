@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 """Open a Shopify checkout/invoice URL in a real browser and report what a buyer would see.
 
-Used to verify checkout availability. The URL comes from the PROBE_URL environment
-variable and is never printed: secret path segments and the query string are masked.
+Used to verify checkout availability. The URL is read from the workflow_dispatch event payload
+and is never printed: secret path segments and the query string are masked.
 """
+import json
 import os
 import re
 import sys
 
 from playwright.sync_api import sync_playwright
 
-URL = os.environ["PROBE_URL"]
+def _url():
+    with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as f:
+        return json.load(f)["inputs"]["url"]
+
+
+URL = _url()
 PHRASES = [
     "can't accept payments", "cannot accept payments", "isn't accepting payments", "not accepting payments",
     "unable to accept payments", "no payment methods", "payment methods aren't available",

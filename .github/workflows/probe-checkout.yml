@@ -25,11 +25,8 @@ jobs:
           pip install playwright==1.55.0
           python -m playwright install --with-deps chromium
       - name: Open the URL like a buyer would
-        env:
-          PROBE_URL: ${{ inputs.url }}
-        run: |
-          echo "::add-mask::$PROBE_URL"
-          python3 .github/probe_checkout.py
+        # the URL is read from the event payload inside the script, so it never appears in the log
+        run: python3 .github/probe_checkout.py
       - name: Keep the screenshot
         if: always()
         uses: actions/upload-artifact@v4
