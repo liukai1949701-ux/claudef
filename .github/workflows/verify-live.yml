@@ -27,3 +27,10 @@ jobs:
           BUY_URL: https://qzgfrd-s1.myshopify.com/products/doormath-rental-property-deal-analyzer
           SITE_DIR: .
         run: python3 .github/verify_live.py
+      - name: Notify search engines (IndexNow)
+        if: github.event_name == 'push'
+        working-directory: site
+        env:
+          SITE_URL: https://liukai1949701-ux.github.io/claudef/
+          INDEXNOW_KEY: e730b51099875d8ece1dec8b8d6beabc
+        run: python3 .github/indexnow.py
