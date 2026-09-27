@@ -59,13 +59,27 @@ def fail(msg):
     failures.append(msg)
 
 
-# 1. wait until the Pages site serves the current index
-for i in range(40):
-    code, _, body = get(BASE)
-    if code == 200:
+REV = os.environ.get("GITHUB_SHA", str(int(time.time())))
+
+
+def fresh(url):
+    """Same-site URL with a per-commit query, so a CDN-cached older copy is never checked."""
+    if not url.startswith(BASE):
+        return url
+    return url + ("&" if "?" in url else "?") + "v=" + REV
+
+
+# 1. wait until the Pages site serves this commit's index.html (a push starts the check
+#    before the Pages build has finished, and the old index also answers 200)
+local_index = open(os.path.join(SITE_DIR, "index.html"), "rb").read()
+for i in range(60):
+    code, _, body = get(fresh(BASE))
+    if code == 200 and body == local_index:
         break
-    print(f"waiting for Pages ({code})")
+    print(f"waiting for Pages to serve this commit (HTTP {code}, {'current' if body == local_index else 'older'} index)")
     time.sleep(15)
+else:
+    fail("Pages did not serve this commit's index.html within 15 minutes")
 print("index:", code)
 
 # 2. every deployed file is served
@@ -78,7 +92,7 @@ for root, dirs, fs in os.walk(SITE_DIR):
         rel = os.path.relpath(os.path.join(root, f), SITE_DIR).replace(os.sep, "/")
         files.append(rel)
 for rel in sorted(files):
-    code, _, body = get(BASE + rel)
+    code, _, body = get(fresh(BASE + rel))
     if code != 200:
         fail(f"deployed file not served: {rel} -> {code}")
     if rel.endswith((".html", ".xml", ".txt")) and b"{{" in body:
@@ -89,7 +103,7 @@ print(f"{len(files)} deployed files checked")
 checked = {}
 for rel in [f for f in files if f.endswith(".html")]:
     page_url = BASE + rel
-    code, _, body = get(page_url)
+    code, _, body = get(fresh(page_url))
     p = Links()
     p.feed(body.decode("utf-8", "replace"))
     buys = 0
@@ -111,7 +125,7 @@ for rel in [f for f in files if f.endswith(".html")]:
         if any(base.lower().endswith(x) for x in (".xlsx", ".zip", ".xls")):
             fail(f"{rel}: links to a downloadable deliverable {base}")
         if base not in checked:
-            checked[base] = get(base)[0]
+            checked[base] = get(fresh(base))[0]
         if checked[base] != 200:
             fail(f"{rel}: broken link {url} -> {checked[base]}")
     print(f"{rel}: {len(p.links)} links, {buys} store links")
